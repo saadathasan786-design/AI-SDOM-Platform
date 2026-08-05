@@ -1,0 +1,29 @@
+{
+  "name": "wp-generators-framework",
+  "version": "1.1.0",
+  "description": "Reusable Generator Framework (Stage 3A) — registry, template loader, naming utilities, and executor with preview/dry-run/rollback. Version tracks framework-version.js's FRAMEWORK_VERSION (currently 1.1.0 since Stage 3E's per-file operation support), independently of the other AI-SDOM packages' own versions — see docs/VERSION-HISTORY.md. No concrete generators live here; see docs/GENERATOR-FRAMEWORK.md.",
+  "type": "module",
+  "private": true,
+  "main": "index.js",
+  "license": "MIT",
+  "author": "AI-SDOM Contributors",
+  "keywords": ["wordpress", "generator", "scaffolding", "ai-sdom"],
+  "engines": {
+    "node": ">=16.7.0"
+  },
+  "files": [
+    "index.js",
+    "framework/",
+    "plugin/",
+    "theme/",
+    "cpt-taxonomy/",
+    "acf/",
+    "rest-api/",
+    "elementor-widget/",
+    "gutenberg-block/",
+    "portfolio-starter-pack/"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  }
+}

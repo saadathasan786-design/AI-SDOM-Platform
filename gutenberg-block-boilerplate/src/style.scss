@@ -1,0 +1,16 @@
+.testimonial {
+	padding: 1.5rem;
+	border-left: 4px solid var(--wp--preset--color--accent, #e63946);
+	background: var(--wp--preset--color--background, #fff);
+
+	&__quote {
+		font-size: 1.25rem;
+		font-style: italic;
+		margin: 0 0 0.5rem;
+	}
+
+	&__author {
+		font-size: 0.875rem;
+		opacity: 0.75;
+	}
+}

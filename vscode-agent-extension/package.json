@@ -1,0 +1,33 @@
+{
+  "name": "wp-agent-vscode",
+  "displayName": "WP Agent Framework",
+  "description": "Run Agent Framework agents (e.g. the Architecture Remediation Agent) directly inside VS Code.",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "author": "AI-SDOM Contributors",
+  "keywords": ["wordpress", "vscode", "agent", "ai-sdom"],
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": ["Linters", "Other"],
+  "activationEvents": [
+    "onCommand:agent.listAgents",
+    "onCommand:agent.checkCompatibility",
+    "onCommand:agent.runAgent",
+    "onCommand:agent.showLastReport"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "agent.listAgents", "title": "Agent: List Agents" },
+      { "command": "agent.checkCompatibility", "title": "Agent: Check Compatibility" },
+      { "command": "agent.runAgent", "title": "Agent: Run Agent" },
+      { "command": "agent.showLastReport", "title": "Agent: Show Last Report" }
+    ]
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  }
+}

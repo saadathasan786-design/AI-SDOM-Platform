@@ -1,0 +1,13 @@
+[
+  {
+    "id": "snap_2026-08-04T08-43-09-944Z_93a23971",
+    "timestamp": "2026-08-04T08:43:09.944Z",
+    "memory_schema_version": "1.0",
+    "source": "manual-test",
+    "scope": {
+      "project_id": "real-snapshot-test"
+    },
+    "hash": "93a23971a914e5eacbf0a8d25154cda309c3c1c72fbb9914d47c60f3cb681588",
+    "data_schema_version": null
+  }
+]

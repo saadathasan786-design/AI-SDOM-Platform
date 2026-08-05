@@ -1,0 +1,31 @@
+{
+  "name": "wp-workflow-vscode",
+  "displayName": "WP Workflow Framework",
+  "description": "Run Workflow Framework workflows (e.g. Project Health Check, Security Audit) directly inside VS Code.",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "author": "AI-SDOM Contributors",
+  "keywords": ["wordpress", "vscode", "workflow", "ai-sdom"],
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": ["Linters", "Other"],
+  "activationEvents": [
+    "onCommand:workflow.listWorkflows",
+    "onCommand:workflow.runWorkflow",
+    "onCommand:workflow.checkCompatibility"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "workflow.listWorkflows", "title": "Workflow: List Workflows" },
+      { "command": "workflow.runWorkflow", "title": "Workflow: Run Workflow" },
+      { "command": "workflow.checkCompatibility", "title": "Workflow: Check Compatibility" }
+    ]
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  }
+}

@@ -1,0 +1,66 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Install MCP server dependencies
+        working-directory: mcp-server
+        run: npm ci
+
+      - name: Test Advisor Framework
+        working-directory: advisors
+        run: node --test test/*.test.js
+
+      - name: Test Agent Framework
+        working-directory: agents
+        run: node --test test/*.test.js
+
+      - name: Test Generator Framework
+        working-directory: generators
+        run: node --test test/*.test.js
+
+      - name: Test Workflow Framework
+        working-directory: workflows
+        run: node --test test/*.test.js
+
+      - name: Test framework-shared
+        working-directory: framework-shared
+        run: node --test test/*.test.js
+
+      - name: Test Project Discovery
+        working-directory: project-discovery
+        run: node --test test/*.test.js
+
+      - name: Test CLI
+        working-directory: cli
+        run: node --test test/*.test.js
+
+      - name: Test MCP server
+        working-directory: mcp-server
+        run: npm test
+
+      - name: Test VS Code Advisor extension
+        working-directory: vscode-advisor-extension
+        run: node --test test/*.test.js
+
+      - name: Test VS Code Agent extension
+        working-directory: vscode-agent-extension
+        run: node --test test/*.test.js
+
+      - name: Test VS Code Workflow extension
+        working-directory: vscode-workflow-extension
+        run: node --test test/*.test.js

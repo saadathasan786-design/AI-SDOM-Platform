@@ -1,0 +1,22 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "boilerplate/testimonial",
+  "title": "Testimonial",
+  "category": "widgets",
+  "icon": "format-quote",
+  "description": "A quote + author testimonial block.",
+  "textdomain": "boilerplate-plugin",
+  "attributes": {
+    "quote": { "type": "string", "source": "html", "selector": ".testimonial__quote" },
+    "author": { "type": "string", "source": "html", "selector": ".testimonial__author" }
+  },
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"],
+    "color": { "background": true, "text": true }
+  },
+  "editorScript": "file:./build/index.js",
+  "editorStyle": "file:./build/index.css",
+  "style": "file:./build/style-index.css"
+}

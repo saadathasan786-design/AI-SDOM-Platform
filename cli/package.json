@@ -1,0 +1,22 @@
+{
+  "name": "wp-advisor-cli",
+  "version": "1.0.0",
+  "description": "Command-line adapters for the Advisor Framework (../advisors/), Agent Framework (../agents/), and Workflow Framework (../workflows/). Thin adapters only -- no analysis, planning, orchestration, or decision logic lives here.",
+  "type": "module",
+  "private": true,
+  "main": "advisor-cli.js",
+  "license": "MIT",
+  "author": "AI-SDOM Contributors",
+  "keywords": ["wordpress", "cli", "advisor", "agent", "workflow", "ai-sdom"],
+  "bin": {
+    "advisor": "./advisor-cli.js",
+    "agent": "./agent-cli.js",
+    "workflow": "./workflow-cli.js"
+  },
+  "engines": {
+    "node": ">=16.7.0"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  }
+}

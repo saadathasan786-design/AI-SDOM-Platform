@@ -1,0 +1,86 @@
+/**
+ * Gutenberg Block Generator — Variable Manifest.
+ */
+
+export const VARIABLE_MANIFEST = [
+  {
+    variable: "block_name",
+    config_field: "block_name",
+    required: true,
+    default: null,
+    description: "Human-readable block name, used to derive slug and default title.",
+    example: "Feature Card",
+  },
+  {
+    variable: "slug",
+    config_field: "slug",
+    required: false,
+    default: "(derived from block_name via toSlug — kebab-case, matching WP block naming convention)",
+    description: "Block slug — the second half of block.json's 'name' field ('{namespace}/{slug}') and the root CSS class.",
+    example: "feature-card",
+  },
+  {
+    variable: "namespace",
+    config_field: "namespace",
+    required: false,
+    default: "(the target plugin's own detected text domain)",
+    description: "Block namespace — the first half of block.json's 'name' field.",
+    example: "acme-client-portal",
+  },
+  {
+    variable: "title",
+    config_field: "title",
+    required: false,
+    default: "(defaults to block_name)",
+    description: "block.json 'title' field, shown in the block inserter.",
+    example: "Feature Card",
+  },
+  {
+    variable: "description",
+    config_field: "description",
+    required: false,
+    default: "A custom block.",
+    description: "block.json 'description' field.",
+    example: "A card with an icon, heading, and short text.",
+  },
+  {
+    variable: "category",
+    config_field: "category",
+    required: false,
+    default: "widgets",
+    description: "block.json 'category' field.",
+    example: "widgets",
+  },
+  {
+    variable: "icon",
+    config_field: "icon",
+    required: false,
+    default: "block-default",
+    description: "block.json 'icon' field — a Dashicon slug.",
+    example: "index-card",
+  },
+  {
+    variable: "keywords",
+    config_field: "keywords",
+    required: false,
+    default: "[]",
+    description: "block.json 'keywords' field — NOT present in the base boilerplate block.json; added by this generator when provided.",
+    example: "['card', 'feature', 'icon']",
+  },
+  {
+    variable: "supports",
+    config_field: "supports",
+    required: false,
+    default: "{ html: false }",
+    description: "block.json 'supports' object — passed through as given; the base boilerplate's testimonial-specific defaults (align, color) are not assumed for a generic block.",
+    example: "{ html: false, align: ['wide', 'full'] }",
+  },
+  {
+    variable: "text_domain",
+    config_field: "(auto-detected from the target project's main plugin file — NOT a config input)",
+    required: false,
+    default: null,
+    description: "The target plugin's text domain, used for block.json's 'textdomain' field.",
+    example: "acme-client-portal",
+  },
+];

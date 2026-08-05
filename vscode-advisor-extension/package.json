@@ -1,0 +1,33 @@
+{
+  "name": "wp-advisor-vscode",
+  "displayName": "WP Advisor Framework",
+  "description": "Run the Advisor Framework's eight advisors (Architecture, Code Review, Security, Performance, Accessibility, and three WordPress-specific advisors: WordPress Security, WordPress Performance, WordPress Hooks & Core) directly inside VS Code.",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "author": "AI-SDOM Contributors",
+  "keywords": ["wordpress", "vscode", "advisor", "ai-sdom"],
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": ["Linters", "Other"],
+  "activationEvents": [
+    "onCommand:advisor.listAdvisors",
+    "onCommand:advisor.runAdvisor",
+    "onCommand:advisor.runManyAdvisors",
+    "onCommand:advisor.showLastReport"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "advisor.listAdvisors", "title": "Advisor: List Advisors" },
+      { "command": "advisor.runAdvisor", "title": "Advisor: Run Advisor" },
+      { "command": "advisor.runManyAdvisors", "title": "Advisor: Run Multiple Advisors" },
+      { "command": "advisor.showLastReport", "title": "Advisor: Show Last Report" }
+    ]
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  }
+}
