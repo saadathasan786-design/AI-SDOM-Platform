@@ -35,6 +35,7 @@
  */
 
 import path from "node:path";
+import { toForwardSlashes } from "../framework/path-utils.js";
 import { toOptionCase } from "../framework/constant-case-manager.js";
 import { toNamespaceSegment } from "../framework/namespace-manager.js";
 import { validateProjectName } from "../framework/naming-validator.js";
@@ -112,7 +113,7 @@ function buildFreshElementorClass({ namespace, widgetFileRelPath, className, tex
     `\t}\n\n` +
     `\t${REGISTER_WIDGETS_MARKER}\n` +
     `\t\tif ( ! did_action( 'elementor/loaded' ) ) {\n\t\t\treturn;\n\t\t}\n\n` +
-    `\t\trequire_once __DIR__ . '/../${widgetFileRelPath}';\n` +
+    `\t\trequire_once __DIR__ . '/../${toForwardSlashes(widgetFileRelPath)}';\n` +
     `\t\t$widgets_manager->register( new \\${className}() );\n` +
     `\t}\n` +
     `}\n`
@@ -121,7 +122,7 @@ function buildFreshElementorClass({ namespace, widgetFileRelPath, className, tex
 
 function buildRegisterWidgetLine(widgetFileRelPath, className) {
   return (
-    `require_once __DIR__ . '/../${widgetFileRelPath}';\n` +
+    `require_once __DIR__ . '/../${toForwardSlashes(widgetFileRelPath)}';\n` +
     `\t\t$widgets_manager->register( new \\${className}() );`
   );
 }
@@ -172,7 +173,7 @@ export function generateElementorWidgetFiles(config, templateFiles, existingFile
       {
         path: widgetPath,
         operation: "skip",
-        reason: `Widget "${slug}" already exists at ${widgetPath} — nothing to do.`,
+        reason: `Widget "${slug}" already exists at ${toForwardSlashes(widgetPath)} — nothing to do.`,
       },
     ];
   }

@@ -33,12 +33,18 @@
  */
 
 import path from "node:path";
+import { toForwardSlashes } from "../framework/path-utils.js";
 import { toOptionCase } from "../framework/constant-case-manager.js";
 import { insertBeforeMethodClose, insertMethodBeforeClassClose } from "../framework/php-class-injector.js";
 import { VARIABLE_MANIFEST } from "./variable-manifest.js";
 
 const REST_FILE_PATH = path.join("includes", "Class-RestApi.php");
 const CPT_FILE_PATH = path.join("includes", "Class-CPT.php");
+// Forward-slash forms for embedding into user-facing error messages —
+// the raw `path.join` forms above stay platform-specific for filesystem
+// operations (see framework/path-utils.js).
+const REST_FILE_PATH_DISPLAY = toForwardSlashes(REST_FILE_PATH);
+const CPT_FILE_PATH_DISPLAY = toForwardSlashes(CPT_FILE_PATH);
 const REGISTER_ROUTES_MARKER = "public function register_routes(): void {";
 
 const VALID_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE"];
@@ -273,7 +279,7 @@ export function generateRestRouteFiles(config, _templateFiles, existingFiles) {
   const restFile = (existingFiles ?? []).find((f) => f.path === REST_FILE_PATH);
   if (!restFile) {
     throw new Error(
-      `Cannot inject route: target project is missing ${REST_FILE_PATH}. This generator targets ` +
+      `Cannot inject route: target project is missing ${REST_FILE_PATH_DISPLAY}. This generator targets ` +
         "plugins produced by this framework's Plugin Generator (Stage 3B) — is outputDir pointed at one?"
     );
   }
@@ -281,12 +287,12 @@ export function generateRestRouteFiles(config, _templateFiles, existingFiles) {
   if (config.target_cpt) {
     const cptFile = (existingFiles ?? []).find((f) => f.path === CPT_FILE_PATH);
     if (!cptFile) {
-      throw new Error(`Cannot inject route: target_cpt was given but ${CPT_FILE_PATH} is missing from the target.`);
+      throw new Error(`Cannot inject route: target_cpt was given but ${CPT_FILE_PATH_DISPLAY} is missing from the target.`);
     }
     const registeredPostTypes = detectRegisteredPostTypes(cptFile.content);
     if (!registeredPostTypes.includes(config.target_cpt)) {
       throw new Error(
-        `Cannot inject route: target_cpt "${config.target_cpt}" is not registered in ${CPT_FILE_PATH} ` +
+        `Cannot inject route: target_cpt "${config.target_cpt}" is not registered in ${CPT_FILE_PATH_DISPLAY} ` +
           `(found: ${registeredPostTypes.join(", ") || "none"}).`
       );
     }
@@ -294,7 +300,7 @@ export function generateRestRouteFiles(config, _templateFiles, existingFiles) {
 
   const detectedNamespace = detectNamespace(restFile.content);
   if (!detectedNamespace) {
-    throw new Error(`Cannot inject route: could not detect the target's REST namespace from ${REST_FILE_PATH}.`);
+    throw new Error(`Cannot inject route: could not detect the target's REST namespace from ${REST_FILE_PATH_DISPLAY}.`);
   }
   const effectiveNamespace = config.namespace || detectedNamespace;
   const usesDefaultNamespace = effectiveNamespace === detectedNamespace;
@@ -318,7 +324,7 @@ export function generateRestRouteFiles(config, _templateFiles, existingFiles) {
   const callbackName = config.callback_name || deriveCallbackName(method, config.route_path);
   if (restFile.content.includes(`function ${callbackName}(`)) {
     throw new Error(
-      `Cannot inject route: a callback method named "${callbackName}" already exists in ${REST_FILE_PATH}. ` +
+      `Cannot inject route: a callback method named "${callbackName}" already exists in ${REST_FILE_PATH_DISPLAY}. ` +
         "Provide an explicit callback_name to avoid the collision."
     );
   }

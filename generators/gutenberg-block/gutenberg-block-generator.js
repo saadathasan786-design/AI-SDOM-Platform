@@ -37,6 +37,7 @@
 
 import path from "node:path";
 import { toSlug } from "../framework/slug-generator.js";
+import { toForwardSlashes } from "../framework/path-utils.js";
 import { validateProjectName } from "../framework/naming-validator.js";
 import { insertBeforeMethodClose, insertMethodBeforeClassClose } from "../framework/php-class-injector.js";
 import {
@@ -90,14 +91,14 @@ function buildFreshBlocksClass({ namespace, blockDirRelPath }) {
     `\t\tadd_action( 'init', array( $this, 'register_blocks' ) );\n` +
     `\t}\n\n` +
     `\t${REGISTER_BLOCKS_MARKER}\n` +
-    `\t\tregister_block_type( __DIR__ . '/../${blockDirRelPath}' );\n` +
+    `\t\tregister_block_type( __DIR__ . '/../${toForwardSlashes(blockDirRelPath)}' );\n` +
     `\t}\n` +
     `}\n`
   );
 }
 
 function buildRegisterBlockLine(blockDirRelPath) {
-  return `register_block_type( __DIR__ . '/../${blockDirRelPath}' );`;
+  return `register_block_type( __DIR__ . '/../${toForwardSlashes(blockDirRelPath)}' );`;
 }
 
 /**
@@ -151,7 +152,7 @@ export function generateGutenbergBlockFiles(config, templateFiles, existingFiles
       {
         path: blockJsonPath,
         operation: "skip",
-        reason: `Block "${slug}" already exists at ${blockDirRelPath} — nothing to do.`,
+        reason: `Block "${slug}" already exists at ${toForwardSlashes(blockDirRelPath)} — nothing to do.`,
       },
     ];
   }

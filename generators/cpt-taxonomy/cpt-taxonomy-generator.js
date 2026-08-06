@@ -40,6 +40,7 @@
 
 import path from "node:path";
 import { toSlug } from "../framework/slug-generator.js";
+import { toForwardSlashes } from "../framework/path-utils.js";
 import { toOptionCase } from "../framework/constant-case-manager.js";
 import { validateProjectName } from "../framework/naming-validator.js";
 import { insertHookIntoRegisterMethod, insertMethodBeforeClassClose } from "../framework/php-class-injector.js";
@@ -47,6 +48,11 @@ import { VARIABLE_MANIFEST } from "./variable-manifest.js";
 
 const CPT_FILE_PATH = path.join("includes", "Class-CPT.php");
 const TAXONOMY_FILE_PATH = path.join("includes", "Class-Taxonomy.php");
+// Forward-slash forms for embedding into user-facing messages — the raw
+// `path.join` forms above stay platform-specific for filesystem operations
+// (see framework/path-utils.js).
+const CPT_FILE_PATH_DISPLAY = toForwardSlashes(CPT_FILE_PATH);
+const TAXONOMY_FILE_PATH_DISPLAY = toForwardSlashes(TAXONOMY_FILE_PATH);
 
 const TEXT_DOMAIN_PATTERN = /__\(\s*'[^']*',\s*'([a-z0-9_-]+)'\s*\)/;
 
@@ -124,8 +130,8 @@ export function generateCptTaxonomyFiles(config, _templateFiles, existingFiles) 
 
   if (!cptFile || !taxFile) {
     throw new Error(
-      `Cannot inject CPT/Taxonomy: target project is missing ${CPT_FILE_PATH} and/or ` +
-        `${TAXONOMY_FILE_PATH}. This generator targets plugins produced by this framework's ` +
+      `Cannot inject CPT/Taxonomy: target project is missing ${CPT_FILE_PATH_DISPLAY} and/or ` +
+        `${TAXONOMY_FILE_PATH_DISPLAY}. This generator targets plugins produced by this framework's ` +
         "Plugin Generator (Stage 3B) — is outputDir pointed at one?"
     );
   }
@@ -180,7 +186,7 @@ export function generateCptTaxonomyFiles(config, _templateFiles, existingFiles) 
     files.push({
       path: CPT_FILE_PATH,
       operation: "skip",
-      reason: `CPT "${cptSlug}" is already registered in ${CPT_FILE_PATH} — nothing to do.`,
+      reason: `CPT "${cptSlug}" is already registered in ${CPT_FILE_PATH_DISPLAY} — nothing to do.`,
     });
   } else {
     const withHook = insertHookIntoRegisterMethod(
@@ -207,7 +213,7 @@ export function generateCptTaxonomyFiles(config, _templateFiles, existingFiles) 
     files.push({
       path: TAXONOMY_FILE_PATH,
       operation: "skip",
-      reason: `Taxonomy "${taxSlug}" is already registered in ${TAXONOMY_FILE_PATH} — nothing to do.`,
+      reason: `Taxonomy "${taxSlug}" is already registered in ${TAXONOMY_FILE_PATH_DISPLAY} — nothing to do.`,
     });
   } else {
     const withHook = insertHookIntoRegisterMethod(

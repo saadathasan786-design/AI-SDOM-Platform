@@ -28,12 +28,18 @@
  */
 
 import path from "node:path";
+import { toForwardSlashes } from "../framework/path-utils.js";
 import { toOptionCase } from "../framework/constant-case-manager.js";
 import { insertHookIntoRegisterMethod, insertMethodBeforeClassClose } from "../framework/php-class-injector.js";
 import { VARIABLE_MANIFEST } from "./variable-manifest.js";
 
 const ACF_FILE_PATH = path.join("includes", "Class-ACF.php");
 const CPT_FILE_PATH = path.join("includes", "Class-CPT.php");
+// Forward-slash forms for embedding into user-facing messages — the raw
+// `path.join` forms above stay platform-specific for filesystem operations
+// (see framework/path-utils.js).
+const ACF_FILE_PATH_DISPLAY = toForwardSlashes(ACF_FILE_PATH);
+const CPT_FILE_PATH_DISPLAY = toForwardSlashes(CPT_FILE_PATH);
 
 const REGISTERED_POST_TYPE_PATTERN = /register_post_type\(\s*'([a-z0-9_]+)'/g;
 
@@ -143,8 +149,8 @@ export function generateAcfFieldGroupFiles(config, _templateFiles, existingFiles
 
   if (!acfFile || !cptFile) {
     throw new Error(
-      `Cannot inject field group: target project is missing ${ACF_FILE_PATH} and/or ` +
-        `${CPT_FILE_PATH}. This generator targets plugins produced by this framework's Plugin ` +
+      `Cannot inject field group: target project is missing ${ACF_FILE_PATH_DISPLAY} and/or ` +
+        `${CPT_FILE_PATH_DISPLAY}. This generator targets plugins produced by this framework's Plugin ` +
         "Generator (Stage 3B) — is outputDir pointed at one?"
     );
   }
@@ -153,7 +159,7 @@ export function generateAcfFieldGroupFiles(config, _templateFiles, existingFiles
   if (!registeredPostTypes.includes(config.target_cpt)) {
     throw new Error(
       `Cannot inject field group: target_cpt "${config.target_cpt}" is not registered in ` +
-        `${CPT_FILE_PATH} (found: ${registeredPostTypes.join(", ") || "none"}). Run the CPT + ` +
+        `${CPT_FILE_PATH_DISPLAY} (found: ${registeredPostTypes.join(", ") || "none"}). Run the CPT + ` +
         "Taxonomy Generator first, or check for a typo."
     );
   }
@@ -172,7 +178,7 @@ export function generateAcfFieldGroupFiles(config, _templateFiles, existingFiles
       {
         path: ACF_FILE_PATH,
         operation: "skip",
-        reason: `Field group "${groupKey}" is already registered in ${ACF_FILE_PATH} — nothing to do.`,
+        reason: `Field group "${groupKey}" is already registered in ${ACF_FILE_PATH_DISPLAY} — nothing to do.`,
       },
     ];
   }
