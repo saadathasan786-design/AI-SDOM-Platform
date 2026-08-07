@@ -32,3 +32,19 @@ npm-debug.log*
 # Build output (where applicable, e.g. gutenberg-block-boilerplate)
 build/
 dist/
+# Test output
+test-results/
+reports/
+
+# Runtime files
+*.pid
+
+# Temporary archives
+*.zip
+*.7z
+
+# macOS resource forks
+._*
+
+# Windows recycle bin
+$RECYCLE.BIN/
