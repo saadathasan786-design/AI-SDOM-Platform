@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="{{LOCALE}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{SITE_TITLE}}</title>
+  <meta name="description" content="{{BUSINESS_DESCRIPTION}}">
+  <link rel="stylesheet" href="styles/tokens.css">
+  <link rel="stylesheet" href="styles/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">{{BUSINESS_NAME}}</a>
+      <nav aria-label="Primary navigation">
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="button button-primary" href="#contact">{{PRIMARY_CTA}}</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">{{BUSINESS_TAGLINE}}</p>
+          <h1 id="hero-title">{{PRIMARY_SERVICE}}</h1>
+          <p class="lead">{{BUSINESS_DESCRIPTION}}</p>
+          <a class="button button-primary" href="#contact">{{PRIMARY_CTA}}</a>
+        </div>
+        <div class="hero-media" aria-label="{{HERO_IMAGE_ALT}}">{{HERO_MEDIA}}</div>
+      </div>
+    </section>
+
+    <section id="services" class="section" aria-labelledby="services-title">
+      <div class="container">
+        <p class="eyebrow">Services</p>
+        <h2 id="services-title">How we can help</h2>
+        <div class="cards">
+          <article class="card">
+            <h3>{{SERVICE_1_NAME}}</h3>
+            <p>{{SERVICE_1_DESCRIPTION}}</p>
+            <a href="{{SERVICE_1_URL}}">{{SERVICE_1_CTA}}</a>
+          </article>
+          <article class="card">
+            <h3>{{SERVICE_2_NAME}}</h3>
+            <p>{{SERVICE_2_DESCRIPTION}}</p>
+            <a href="{{SERVICE_2_URL}}">{{SERVICE_2_CTA}}</a>
+          </article>
+          <article class="card">
+            <h3>{{SERVICE_3_NAME}}</h3>
+            <p>{{SERVICE_3_DESCRIPTION}}</p>
+            <a href="{{SERVICE_3_URL}}">{{SERVICE_3_CTA}}</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section section-muted" aria-labelledby="about-title">
+      <div class="container narrow">
+        <p class="eyebrow">About</p>
+        <h2 id="about-title">{{ABOUT_HEADING}}</h2>
+        <p>{{ABOUT_DESCRIPTION}}</p>
+      </div>
+    </section>
+
+    <section id="contact" class="section" aria-labelledby="contact-title">
+      <div class="container narrow">
+        <p class="eyebrow">Contact</p>
+        <h2 id="contact-title">{{CONTACT_HEADING}}</h2>
+        <p>{{CONTACT_DESCRIPTION}}</p>
+        <div class="contact-actions">
+          <a class="button button-primary" href="tel:{{PHONE}}">{{PHONE}}</a>
+          <a class="button button-secondary" href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+        </div>
+        <p>{{ADDRESS}}</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; {{CURRENT_YEAR}} {{BUSINESS_NAME}}</p>
+    </div>
+  </footer>
+</body>
+</html>

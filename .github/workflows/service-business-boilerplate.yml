@@ -1,0 +1,55 @@
+name: Service Business Boilerplate Validation
+
+on:
+  push:
+    branches:
+      - main
+      - 'feat/service-business-website-boilerplate'
+    paths:
+      - 'service-business-website-boilerplate/**'
+      - '.github/workflows/service-business-boilerplate.yml'
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'service-business-website-boilerplate/**'
+      - '.github/workflows/service-business-boilerplate.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-service-business-boilerplate:
+    name: Validate service-business boilerplate
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: service-business-website-boilerplate
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+
+      - name: Verify Node.js
+        run: node --version
+
+      - name: Run boilerplate validation
+        run: npm run validate
+
+      - name: Generate validation website
+        run: node config/scripts/generate.mjs config/fixtures/validation.project.json dist/index.html
+
+      - name: Verify generated website
+        run: |
+          test -s dist/index.html
+          ! grep -q '{{[A-Z0-9_]*}}' dist/index.html
+          grep -q '<main id="main">' dist/index.html
+          grep -q '<h1 id="hero-title">' dist/index.html
+
+      - name: Verify generator help
+        run: node config/scripts/generate.mjs --help

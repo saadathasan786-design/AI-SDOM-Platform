@@ -64,11 +64,15 @@ for (let i = 0; i < 3; i += 1) {
   replacements[`{{SERVICE_${i + 1}_CTA}}`] = service.cta;
 }
 
-replacements['{{HERO_IMAGE_ALT}}'] = config.business?.name ? `${config.business.name} service` : undefined;
+replacements['{{HERO_IMAGE_ALT}}'] = config.business?.name
+  ? `${config.business.name} service`
+  : undefined;
 replacements['{{HERO_MEDIA}}'] = config.business?.name
   ? `<span aria-hidden="true">${config.business.name}</span>`
   : undefined;
-replacements['{{ABOUT_HEADING}}'] = config.business?.name ? `About ${config.business.name}` : undefined;
+replacements['{{ABOUT_HEADING}}'] = config.business?.name
+  ? `About ${config.business.name}`
+  : undefined;
 replacements['{{ABOUT_DESCRIPTION}}'] = config.business?.description;
 replacements['{{CONTACT_HEADING}}'] = 'Get in touch';
 replacements['{{CONTACT_DESCRIPTION}}'] = 'Contact us to discuss your service needs.';
