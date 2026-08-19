@@ -33,6 +33,7 @@
   "site": {
     "url": "https://example.test",
     "title": "Example Service Co. | Validation Site",
-    "locale": "en"
+    "locale": "en",
+    "primaryCta": "Request a Consultation"
   }
 }
