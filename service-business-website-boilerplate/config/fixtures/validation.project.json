@@ -1,0 +1,39 @@
+{
+  "business": {
+    "name": "Example Service Co.",
+    "description": "A synthetic service-business description used only for automated validation.",
+    "tagline": "Example service for validation",
+    "serviceAreas": ["Example City"]
+  },
+  "services": [
+    {
+      "name": "Example Primary Service",
+      "description": "Synthetic primary service description for automated validation.",
+      "slug": "example-primary-service",
+      "cta": "Learn More"
+    },
+    {
+      "name": "Example Secondary Service",
+      "description": "Synthetic secondary service description for automated validation.",
+      "slug": "example-secondary-service",
+      "cta": "Learn More"
+    },
+    {
+      "name": "Example Tertiary Service",
+      "description": "Synthetic tertiary service description for automated validation.",
+      "slug": "example-tertiary-service",
+      "cta": "Learn More"
+    }
+  ],
+  "contact": {
+    "phone": "+1-555-0100",
+    "email": "validation@example.test",
+    "address": "100 Example Avenue, Example City"
+  },
+  "site": {
+    "url": "https://example.test",
+    "title": "Example Service Co. | Validation Site",
+    "locale": "en",
+    "primaryCta": "Request a Consultation"
+  }
+}
