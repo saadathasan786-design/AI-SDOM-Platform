@@ -23,12 +23,13 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: '24'
+          package-manager-cache: false
 
       - name: Verify Node.js
         run: node --version
@@ -36,5 +37,15 @@ jobs:
       - name: Run boilerplate validation
         run: npm run validate
 
-      - name: Verify generator is available
+      - name: Generate example website
+        run: node config/scripts/generate.mjs config/example.project.json dist/index.html
+
+      - name: Verify generated website
+        run: |
+          test -s dist/index.html
+          ! grep -q '{{[A-Z0-9_]*}}' dist/index.html
+          grep -q '<main id="main">' dist/index.html
+          grep -q '<h1 id="hero-title">' dist/index.html
+
+      - name: Verify generator help
         run: node config/scripts/generate.mjs --help
