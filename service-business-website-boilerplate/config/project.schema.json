@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-sdom.example/schemas/service-business-project.schema.json",
+  "title": "AI-SDOM Service Business Website Project",
+  "type": "object",
+  "required": ["business", "services", "contact", "site"],
+  "properties": {
+    "business": {
+      "type": "object",
+      "required": ["name", "description"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "description": {"type": "string", "minLength": 1},
+        "tagline": {"type": "string"},
+        "serviceAreas": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "services": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "description"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "description": {"type": "string", "minLength": 1},
+          "slug": {"type": "string"},
+          "cta": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "contact": {
+      "type": "object",
+      "properties": {
+        "phone": {"type": "string"},
+        "email": {"type": "string", "format": "email"},
+        "address": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "site": {
+      "type": "object",
+      "required": ["url"],
+      "properties": {
+        "url": {"type": "string", "format": "uri"},
+        "title": {"type": "string"},
+        "locale": {"type": "string"},
+        "primaryCta": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
