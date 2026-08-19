@@ -51,6 +51,7 @@ const replacements = {
   '{{DOMAIN}}': config.site?.url,
   '{{SITE_TITLE}}': config.site?.title ?? config.business?.name,
   '{{LOCALE}}': config.site?.locale ?? 'en',
+  '{{PRIMARY_CTA}}': config.site?.primaryCta,
   '{{CURRENT_YEAR}}': String(new Date().getFullYear()),
 };
 
@@ -63,15 +64,18 @@ for (let i = 0; i < 3; i += 1) {
   replacements[`{{SERVICE_${i + 1}_CTA}}`] = service.cta;
 }
 
-const optionalPlaceholders = {
-  '{{HERO_IMAGE_ALT}}': config.business?.name ? `${config.business.name} service` : undefined,
-  '{{HERO_MEDIA}}': config.business?.name ? `<span aria-hidden="true">${config.business.name}</span>` : undefined,
-  '{{ABOUT_HEADING}}': 'About {{BUSINESS_NAME}}',
-  '{{ABOUT_DESCRIPTION}}': config.business?.description,
-  '{{CONTACT_HEADING}}': 'Get in touch',
-  '{{CONTACT_DESCRIPTION}}': 'Contact us to discuss your service needs.',
-};
-Object.assign(replacements, optionalPlaceholders);
+replacements['{{HERO_IMAGE_ALT}}'] = config.business?.name
+  ? `${config.business.name} service`
+  : undefined;
+replacements['{{HERO_MEDIA}}'] = config.business?.name
+  ? `<span aria-hidden="true">${config.business.name}</span>`
+  : undefined;
+replacements['{{ABOUT_HEADING}}'] = config.business?.name
+  ? `About ${config.business.name}`
+  : undefined;
+replacements['{{ABOUT_DESCRIPTION}}'] = config.business?.description;
+replacements['{{CONTACT_HEADING}}'] = 'Get in touch';
+replacements['{{CONTACT_DESCRIPTION}}'] = 'Contact us to discuss your service needs.';
 
 let html = readFileSync(templatePath, 'utf8');
 for (const [token, value] of Object.entries(replacements)) {
