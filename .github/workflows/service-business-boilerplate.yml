@@ -5,7 +5,11 @@ on:
     branches:
       - main
       - 'feat/service-business-website-boilerplate'
+    paths:
+      - 'service-business-website-boilerplate/**'
+      - '.github/workflows/service-business-boilerplate.yml'
   pull_request:
+    types: [opened, synchronize, reopened]
     paths:
       - 'service-business-website-boilerplate/**'
       - '.github/workflows/service-business-boilerplate.yml'
