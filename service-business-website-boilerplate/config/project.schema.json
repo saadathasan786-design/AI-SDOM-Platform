@@ -42,11 +42,12 @@
     },
     "site": {
       "type": "object",
-      "required": ["url"],
+      "required": ["url", "primaryCta"],
       "properties": {
         "url": {"type": "string", "format": "uri"},
         "title": {"type": "string"},
-        "locale": {"type": "string"}
+        "locale": {"type": "string"},
+        "primaryCta": {"type": "string", "minLength": 1}
       },
       "additionalProperties": false
     }
