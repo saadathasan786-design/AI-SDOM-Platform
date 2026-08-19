@@ -37,8 +37,8 @@ jobs:
       - name: Run boilerplate validation
         run: npm run validate
 
-      - name: Generate example website
-        run: node config/scripts/generate.mjs config/example.project.json dist/index.html
+      - name: Generate validation website
+        run: node config/scripts/generate.mjs config/fixtures/validation.project.json dist/index.html
 
       - name: Verify generated website
         run: |
