@@ -1,0 +1,33 @@
+{
+  "projectClass": "service-business-website",
+  "boilerplate": "service-business-website-boilerplate",
+  "inputSchema": "config/project.schema.json",
+  "entryTemplate": "index.html",
+  "styleEntry": "styles/site.css",
+  "tokenEntry": "styles/tokens.css",
+  "validationCommand": "npm run validate",
+  "requiredStages": [
+    "project-initialization",
+    "requirements-validation",
+    "architecture-check",
+    "content-population",
+    "implementation",
+    "accessibility-validation",
+    "security-validation",
+    "seo-validation",
+    "performance-validation",
+    "baseline-validation",
+    "handover"
+  ],
+  "governance": {
+    "initializationProcedure": "OPOM-SOP-012",
+    "architectureProcedure": "OPOM-SOP-010",
+    "changeProcedure": "OPOM-SOP-011"
+  },
+  "claimsPolicy": {
+    "allowInventedBusinessFacts": false,
+    "allowInventedTestimonials": false,
+    "allowInventedCredentials": false,
+    "allowUnverifiedCompletionClaims": false
+  }
+}
