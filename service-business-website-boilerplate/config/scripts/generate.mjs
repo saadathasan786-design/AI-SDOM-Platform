@@ -45,13 +45,13 @@ const replacements = {
   '{{PRIMARY_SERVICE_DESCRIPTION}}': config.services?.[0]?.description,
   '{{PRIMARY_SERVICE_SLUG}}': config.services?.[0]?.slug,
   '{{PRIMARY_SERVICE_CTA}}': config.services?.[0]?.cta,
+  '{{PRIMARY_CTA}}': config.site?.primaryCta,
   '{{PHONE}}': config.contact?.phone,
   '{{EMAIL}}': config.contact?.email,
   '{{ADDRESS}}': config.contact?.address,
   '{{DOMAIN}}': config.site?.url,
   '{{SITE_TITLE}}': config.site?.title ?? config.business?.name,
   '{{LOCALE}}': config.site?.locale ?? 'en',
-  '{{PRIMARY_CTA}}': config.site?.primaryCta,
   '{{CURRENT_YEAR}}': String(new Date().getFullYear()),
 };
 
