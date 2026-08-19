@@ -1,0 +1,40 @@
+name: Service Business Boilerplate Validation
+
+on:
+  push:
+    branches:
+      - main
+      - 'feat/service-business-website-boilerplate'
+  pull_request:
+    paths:
+      - 'service-business-website-boilerplate/**'
+      - '.github/workflows/service-business-boilerplate.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-service-business-boilerplate:
+    name: Validate service-business boilerplate
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: service-business-website-boilerplate
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Verify Node.js
+        run: node --version
+
+      - name: Run boilerplate validation
+        run: npm run validate
+
+      - name: Verify generator is available
+        run: node config/scripts/generate.mjs --help
