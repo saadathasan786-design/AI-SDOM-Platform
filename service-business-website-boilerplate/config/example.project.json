@@ -1,0 +1,26 @@
+{
+  "business": {
+    "name": "{{BUSINESS_NAME}}",
+    "description": "{{BUSINESS_DESCRIPTION}}",
+    "tagline": "{{BUSINESS_TAGLINE}}",
+    "serviceAreas": ["{{SERVICE_AREA}}"]
+  },
+  "services": [
+    {
+      "name": "{{PRIMARY_SERVICE}}",
+      "description": "{{PRIMARY_SERVICE_DESCRIPTION}}",
+      "slug": "{{PRIMARY_SERVICE_SLUG}}",
+      "cta": "{{PRIMARY_SERVICE_CTA}}"
+    }
+  ],
+  "contact": {
+    "phone": "{{PHONE}}",
+    "email": "{{EMAIL}}",
+    "address": "{{ADDRESS}}"
+  },
+  "site": {
+    "url": "https://{{DOMAIN}}",
+    "title": "{{SITE_TITLE}}",
+    "locale": "{{LOCALE}}"
+  }
+}
