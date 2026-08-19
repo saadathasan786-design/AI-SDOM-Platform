@@ -1,0 +1,9 @@
+{
+  "name": "ai-sdom-service-business-website-boilerplate",
+  "private": true,
+  "version": "0.1.0",
+  "description": "AI-SDOM service-business website project baseline",
+  "scripts": {
+    "validate": "node tests/validate.mjs"
+  }
+}
