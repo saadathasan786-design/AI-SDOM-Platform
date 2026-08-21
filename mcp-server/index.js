@@ -27,6 +27,16 @@ import {
   handleWorkflowRun,
   handleWorkflowCheckCompatibility,
 } from "./workflow-tools.js";
+import {
+  generatorTools,
+  handleGeneratorList,
+  handleGeneratorGet,
+  handleGeneratorGetVariableManifest,
+  handleGeneratorRun,
+  handleGeneratorSupportsMode,
+  handleGeneratorIsAvailable,
+  handleGeneratorGetFrameworkCompatibility,
+} from "./generator-tools.js";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -244,12 +254,16 @@ const tools = [
   ...advisorTools,
   ...agentTools,
   ...workflowTools,
+  ...generatorTools,
 ];
 
 server.setRequestHandler(ListToolsRequestSchema, async () => ({ tools }));
 
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
   const { name, arguments: args = {} } = request.params;
+
+  console.error(`[MCP] tools/call received: ${name}`);
+  console.error(`[MCP] arguments: ${JSON.stringify(args)}`);
 
   try {
     let result;
@@ -288,7 +302,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         const base = args.post_type || "posts";
         const { post_type, id, ...fields } = args;
         result = await wpRequest(`/wp/v2/${base}/${id}`, {
-          method: "POST", // WP REST API uses POST for partial updates
+          method: "POST",
           body: fields,
         });
         break;
@@ -317,10 +331,6 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         break;
       }
       case "wp_upload_media": {
-        // Note: this simplified version sends JSON with base64 in a custom
-        // header-less way is NOT how core expects binary uploads. For real
-        // binary uploads, POST the raw bytes with a Content-Disposition
-        // header. See mcp-server/README.md for the binary-upload variant.
         result = await wpRequest(`/wp/v2/media`, {
           method: "POST",
           body: {
@@ -412,32 +422,48 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         result = await handleWorkflowCheckCompatibility(args);
         break;
       }
+      case "generator_list": {
+        result = await handleGeneratorList();
+        break;
+      }
+      case "generator_get": {
+        result = await handleGeneratorGet(args);
+        break;
+      }
+      case "generator_getVariableManifest": {
+        result = await handleGeneratorGetVariableManifest(args);
+        break;
+      }
+      case "generator_run": {
+        result = await handleGeneratorRun(args);
+        break;
+      }
+      case "generator_supportsMode": {
+        result = await handleGeneratorSupportsMode(args);
+        break;
+      }
+      case "generator_isAvailable": {
+        result = await handleGeneratorIsAvailable(args);
+        break;
+      }
+      case "generator_getFrameworkCompatibility": {
+        result = await handleGeneratorGetFrameworkCompatibility(args);
+        break;
+      }
       default:
         throw new Error(`Unknown tool: ${name}`);
     }
 
+    console.error(`[MCP] tools/call completed: ${name}`);
+
     return {
       content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
-      // advisor_run/advisor_runMany/agent_run never throw internally (per
-      // the Advisor/Agent Frameworks' own never-throws contracts) -- they
-      // encode "unknown advisor/agent" or any other framework-level
-      // failure as `success: false` in an otherwise well-formed report.
-      // checkCompatibility() similarly never throws for an unknown agent
-      // id -- it encodes that as a non-null `error` field alongside
-      // `compatible: false` (whereas a REGISTERED agent with missing
-      // dependencies also reports `compatible: false` but `error: null`,
-      // which is a legitimate answer, not a failure, and must NOT be
-      // surfaced as an MCP error). Surfacing the genuine failure cases as
-      // proper MCP errors while STILL returning the full, unchanged
-      // report as content satisfies both "return the report unchanged"
-      // and "must return proper MCP errors" -- nothing is re-validated or
-      // duplicated here, this only maps an already-computed domain-level
-      // failure onto the MCP transport's own error flag.
       isError:
-        (["advisor_run", "advisor_runMany", "agent_run", "workflow_run"].includes(name) && result?.success === false) ||
+        (["advisor_run", "advisor_runMany", "agent_run", "workflow_run", "generator_run"].includes(name) && result?.success === false) ||
         (["agent_checkCompatibility", "workflow_checkCompatibility"].includes(name) && Boolean(result?.error)),
     };
   } catch (err) {
+    console.error(`[MCP] tools/call failed: ${name}: ${err.stack || err.message}`);
     return {
       content: [{ type: "text", text: `Error: ${err.message}` }],
       isError: true,
