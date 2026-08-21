@@ -237,20 +237,30 @@ test("never-throws: once past the adapter's own shape/mutual-exclusivity checks,
 // ---------------------------------------------------------------------
 
 async function withRealServer(toolCalls, run) {
-  const proc = spawn("node", [SERVER_PATH], { stdio: ["pipe", "pipe", "pipe"] });
+  const proc = spawn("node", [SERVER_PATH], {
+    stdio: ["pipe", "pipe", "pipe"],
+  });
+
   const responses = new Map();
   let buffer = "";
 
   proc.stdout.on("data", (chunk) => {
     buffer += chunk.toString();
+
     let newlineIndex;
+
     while ((newlineIndex = buffer.indexOf("\n")) >= 0) {
       const line = buffer.slice(0, newlineIndex);
       buffer = buffer.slice(newlineIndex + 1);
+
       if (!line.trim()) continue;
+
       try {
         const parsed = JSON.parse(line);
-        if (parsed.id !== undefined) responses.set(parsed.id, parsed);
+
+        if (parsed.id !== undefined) {
+          responses.set(parsed.id, parsed);
+        }
       } catch {
         // ignore non-JSON stdout noise
       }
@@ -261,22 +271,69 @@ async function withRealServer(toolCalls, run) {
     proc.stdin.write(JSON.stringify(msg) + "\n");
   }
 
+  function waitForResponses(ids, timeoutMs = 10000) {
+    return new Promise((resolve, reject) => {
+      const deadline = Date.now() + timeoutMs;
+
+      const check = () => {
+        const missing = ids.filter((id) => !responses.has(id));
+
+        if (missing.length === 0) {
+          resolve();
+          return;
+        }
+
+        if (Date.now() >= deadline) {
+          reject(
+            new Error(
+              `Timed out waiting for MCP responses: ${missing.join(", ")}`
+            )
+          );
+          return;
+        }
+
+        setTimeout(check, 25);
+      };
+
+      check();
+    });
+  }
+
   try {
-    await new Promise((resolve) => setTimeout(resolve, 300));
     send({
       jsonrpc: "2.0",
       id: "init",
       method: "initialize",
-      params: { protocolVersion: "2024-11-05", capabilities: {}, clientInfo: { name: "test", version: "1.0" } },
+      params: {
+        protocolVersion: "2024-11-05",
+        capabilities: {},
+        clientInfo: {
+          name: "test",
+          version: "1.0",
+        },
+      },
     });
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    send({ jsonrpc: "2.0", method: "notifications/initialized" });
-    await new Promise((resolve) => setTimeout(resolve, 200));
+
+    await waitForResponses(["init"]);
+
+    send({
+      jsonrpc: "2.0",
+      method: "notifications/initialized",
+    });
 
     for (const call of toolCalls) {
-      send({ jsonrpc: "2.0", id: call.id, method: "tools/call", params: { name: call.name, arguments: call.arguments } });
+      send({
+        jsonrpc: "2.0",
+        id: call.id,
+        method: "tools/call",
+        params: {
+          name: call.name,
+          arguments: call.arguments,
+        },
+      });
     }
-    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    await waitForResponses(toolCalls.map((call) => call.id));
 
     return run(responses);
   } finally {

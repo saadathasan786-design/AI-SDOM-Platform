@@ -8,9 +8,25 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SERVER_PATH = path.join(__dirname, "..", "index.js");
 
 async function withRealServer(toolCalls, run) {
-  const proc = spawn("node", [SERVER_PATH], { stdio: ["pipe", "pipe", "pipe"] });
+   const proc = spawn("node", [SERVER_PATH], {
+    stdio: ["pipe", "pipe", "pipe"],
+  });
+
   const responses = new Map();
   let buffer = "";
+  let stderr = "";
+
+  proc.stderr.on("data", (chunk) => {
+    stderr += chunk.toString();
+  });
+
+  proc.on("error", (err) => {
+    console.error("MCP CHILD PROCESS ERROR:", err);
+  });
+
+  proc.on("exit", (code, signal) => {
+    console.error("MCP CHILD PROCESS EXIT:", { code, signal });
+  });
 
   proc.stdout.on("data", (chunk) => {
     buffer += chunk.toString();
@@ -29,28 +45,84 @@ async function withRealServer(toolCalls, run) {
   });
 
   function send(msg) {
-    proc.stdin.write(JSON.stringify(msg) + "\n");
-  }
+  proc.stdin.write(JSON.stringify(msg) + "\n");
+}
 
-  try {
-    await new Promise((resolve) => setTimeout(resolve, 300));
+function waitForResponses(ids, timeoutMs = 10000) {
+  return new Promise((resolve, reject) => {
+    const deadline = Date.now() + timeoutMs;
+
+    const check = () => {
+      const missing = ids.filter((id) => !responses.has(id));
+
+      if (missing.length === 0) {
+        resolve();
+        return;
+      }
+
+      if (Date.now() >= deadline) {
+        reject(
+          new Error(
+            `Timed out waiting for MCP responses: ${missing.join(", ")}`
+          )
+        );
+        return;
+      }
+
+      setTimeout(check, 25);
+    };
+
+    check();
+  });
+}
+
+try {
+  send({
+    jsonrpc: "2.0",
+    id: "init",
+    method: "initialize",
+    params: {
+      protocolVersion: "2024-11-05",
+      capabilities: {},
+      clientInfo: { name: "test", version: "1.0" },
+    },
+  });
+
+  await waitForResponses(["init"]);
+
+  send({
+    jsonrpc: "2.0",
+    method: "notifications/initialized",
+  });
+
+  for (const call of toolCalls) {
     send({
       jsonrpc: "2.0",
-      id: "init",
-      method: "initialize",
-      params: { protocolVersion: "2024-11-05", capabilities: {}, clientInfo: { name: "test", version: "1.0" } },
+      id: call.id,
+      method: "tools/call",
+      params: {
+        name: call.name,
+        arguments: call.arguments,
+      },
     });
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    send({ jsonrpc: "2.0", method: "notifications/initialized" });
-    await new Promise((resolve) => setTimeout(resolve, 200));
+  }
 
-    for (const call of toolCalls) {
-      send({ jsonrpc: "2.0", id: call.id, method: "tools/call", params: { name: call.name, arguments: call.arguments } });
-    }
-    await new Promise((resolve) => setTimeout(resolve, 1200));
+  await waitForResponses(toolCalls.map((call) => call.id));
 
-    return run(responses);
+  return run(responses);
+
   } finally {
+        if (stderr.trim()) {
+      console.error("\n===== MCP SERVER STDERR =====");
+      console.error(stderr);
+      console.error("===== END MCP SERVER STDERR =====\n");
+    }
+
+    console.error("MCP SERVER EXIT STATUS:", {
+      exitCode: proc.exitCode,
+      signalCode: proc.signalCode,
+    });
+
     proc.kill();
   }
 }
