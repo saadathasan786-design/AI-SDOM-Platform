@@ -36,17 +36,20 @@ test("generator_list requires no arguments", () => {
   assert.deepEqual(tool.inputSchema.properties, {});
 });
 
-test("all id-based Generator tools declare id as required", () => {
-  for (const name of [
-    "generator_get",
-    "generator_getVariableManifest",
-    "generator_run",
-    "generator_supportsMode",
-    "generator_isAvailable",
-    "generator_getFrameworkCompatibility",
-  ]) {
+test("id-based Generator tools declare their required arguments", () => {
+  const expected = {
+    generator_get: ["id"],
+    generator_getVariableManifest: ["id"],
+    generator_run: ["id", "mode"],
+    generator_supportsMode: ["id", "mode"],
+    generator_isAvailable: ["id"],
+    generator_getFrameworkCompatibility: ["id"],
+  };
+
+  for (const [name, required] of Object.entries(expected)) {
     const tool = generatorTools.find((t) => t.name === name);
-    assert.deepEqual(tool.inputSchema.required, ["id"]);
+    assert.ok(tool, `Generator tool '${name}' must exist`);
+    assert.deepEqual(tool.inputSchema.required, required);
   }
 });
 
@@ -141,7 +144,7 @@ test("handleGeneratorIsAvailable reports the real plugin generator as available"
 test("handleGeneratorGetFrameworkCompatibility returns the framework's exact compatibility data", async () => {
   const result = await handleGeneratorGetFrameworkCompatibility({ id: "plugin" });
   assert.equal(result.compatible, true);
-  assert.equal(result.currentFrameworkVersion, "1.0.0");
+  assert.equal(result.currentFrameworkVersion, "1.1.0");
   assert.equal(result.minimumFrameworkVersion, "1.0.0");
 });
 

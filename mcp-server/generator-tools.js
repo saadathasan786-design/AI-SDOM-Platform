@@ -65,7 +65,7 @@ export const generatorTools = [
         outputDir: { type: "string", description: "Target directory for dry-run/write execution." },
         mode: { type: "string", enum: ["preview", "dry-run", "write"], default: "write" },
       },
-      required: ["id"],
+      required: ["id", "mode"],
     },
   },
   {

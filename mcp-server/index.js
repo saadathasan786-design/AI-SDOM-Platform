@@ -262,6 +262,9 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({ tools }));
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
   const { name, arguments: args = {} } = request.params;
 
+  console.error(`[MCP] tools/call received: ${name}`);
+  console.error(`[MCP] arguments: ${JSON.stringify(args)}`);
+
   try {
     let result;
 
@@ -451,6 +454,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         throw new Error(`Unknown tool: ${name}`);
     }
 
+    console.error(`[MCP] tools/call completed: ${name}`);
+
     return {
       content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
       isError:
@@ -458,6 +463,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         (["agent_checkCompatibility", "workflow_checkCompatibility"].includes(name) && Boolean(result?.error)),
     };
   } catch (err) {
+    console.error(`[MCP] tools/call failed: ${name}: ${err.stack || err.message}`);
     return {
       content: [{ type: "text", text: `Error: ${err.message}` }],
       isError: true,

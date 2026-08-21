@@ -8,20 +8,30 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SERVER_PATH = path.join(__dirname, "..", "index.js");
 
 async function withRealServer(toolCalls, run) {
-  const proc = spawn("node", [SERVER_PATH], { stdio: ["pipe", "pipe", "pipe"] });
+  const proc = spawn("node", [SERVER_PATH], {
+    stdio: ["pipe", "pipe", "pipe"],
+  });
+
   const responses = new Map();
   let buffer = "";
 
   proc.stdout.on("data", (chunk) => {
     buffer += chunk.toString();
+
     let newlineIndex;
+
     while ((newlineIndex = buffer.indexOf("\n")) >= 0) {
       const line = buffer.slice(0, newlineIndex);
       buffer = buffer.slice(newlineIndex + 1);
+
       if (!line.trim()) continue;
+
       try {
         const parsed = JSON.parse(line);
-        if (parsed.id !== undefined) responses.set(parsed.id, parsed);
+
+        if (parsed.id !== undefined) {
+          responses.set(parsed.id, parsed);
+        }
       } catch {
         // Ignore non-JSON stdout noise.
       }
@@ -32,8 +42,38 @@ async function withRealServer(toolCalls, run) {
     proc.stdin.write(JSON.stringify(msg) + "\n");
   }
 
+  async function waitForResponse(id, timeoutMs = 15000) {
+    const deadline = Date.now() + timeoutMs;
+
+    return new Promise((resolve, reject) => {
+      const check = () => {
+        if (responses.has(id)) {
+          resolve(responses.get(id));
+          return;
+        }
+
+        if (Date.now() >= deadline) {
+          reject(
+            new Error(
+              `Timed out waiting for MCP response ${id}. ` +
+                `Received: ${[...responses.keys()].join(", ") || "(none)"}`
+            )
+          );
+          return;
+        }
+
+        setTimeout(check, 50);
+      };
+
+      check();
+    });
+  }
+
   try {
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    /*
+     * Do not use an arbitrary startup sleep as the synchronization
+     * mechanism. Start the MCP handshake immediately.
+     */
     send({
       jsonrpc: "2.0",
       id: "init",
@@ -41,22 +81,74 @@ async function withRealServer(toolCalls, run) {
       params: {
         protocolVersion: "2024-11-05",
         capabilities: {},
-        clientInfo: { name: "test", version: "1.0" },
+        clientInfo: {
+          name: "test",
+          version: "1.0",
+        },
       },
     });
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    send({ jsonrpc: "2.0", method: "notifications/initialized" });
-    await new Promise((resolve) => setTimeout(resolve, 200));
 
+    await waitForResponse("init");
+
+    /*
+     * MCP lifecycle notification.
+     */
+    send({
+      jsonrpc: "2.0",
+      method: "notifications/initialized",
+      params: {},
+    });
+
+    /*
+     * THIS WAS MISSING.
+     *
+     * Actually send every requested tool invocation.
+     */
     for (const call of toolCalls) {
       send({
         jsonrpc: "2.0",
         id: call.id,
         method: "tools/call",
-        params: { name: call.name, arguments: call.arguments },
+        params: {
+          name: call.name,
+          arguments: call.arguments ?? {},
+        },
       });
     }
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    const expectedIds = new Set(toolCalls.map((call) => call.id));
+
+    await new Promise((resolve, reject) => {
+      const deadline = Date.now() + 15000;
+
+      const check = () => {
+        const allReceived = [...expectedIds].every((id) =>
+          responses.has(id)
+        );
+
+        if (allReceived) {
+          resolve();
+          return;
+        }
+
+        if (Date.now() >= deadline) {
+          reject(
+            new Error(
+              `Timed out waiting for MCP responses. ` +
+                `Received: ${
+                  [...responses.keys()].join(", ") || "(none)"
+                }. ` +
+                `Expected: ${[...expectedIds].join(", ")}`
+            )
+          );
+          return;
+        }
+
+        setTimeout(check, 50);
+      };
+
+      check();
+    });
 
     return run(responses);
   } finally {
