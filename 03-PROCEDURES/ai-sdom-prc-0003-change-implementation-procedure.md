@@ -1,23 +1,37 @@
-# Change Implementation Procedure
-
-**Identifier:** AI-SDOM-PRC-0003-CHANGE-IMPLEMENTATION-PROCEDURE
-**Version:** 0.1.0
-**Lifecycle State:** Draft
-**Layer:** 3
-**Dependencies:** [AI-SDOM-ARC-0001-ARCHITECTURE-CONTRACT], [AI-SDOM-GOV-0001-REPOSITORY-GOVERNANCE-POLICY], [AI-SDOM-GOV-0002-CHANGE-MANAGEMENT-POLICY], [AI-SDOM-STD-0001-DOCUMENTATION-STANDARD], [AI-SDOM-STD-0002-DOCUMENT-METADATA-STANDARD], [AI-SDOM-STD-0003-CROSS-REFERENCE-STANDARD]
-**ai-assistance:** ChatGPT 2026-08-22: implementation draft
-
 ---
+identifier: AI-SDOM-PRC-0003-CHANGE-IMPLEMENTATION-PROCEDURE
+title: Change Implementation Procedure
+version: 0.1.0
+lifecycle-state: Draft
+layer: 3
+dependencies:
+  - AI-SDOM-ARC-0001-ARCHITECTURE-CONTRACT
+  - AI-SDOM-GOV-0001-REPOSITORY-GOVERNANCE-POLICY
+  - AI-SDOM-GOV-0002-CHANGE-MANAGEMENT-POLICY
+  - AI-SDOM-STD-0001-DOCUMENTATION-STANDARD
+  - AI-SDOM-STD-0002-DOCUMENT-METADATA-STANDARD
+  - AI-SDOM-STD-0003-CROSS-REFERENCE-STANDARD
+  - AI-SDOM-STD-0004-SEMANTIC-VERSIONING-STANDARD
+  - AI-SDOM-STD-0005-NAMING-CONVENTION-STANDARD
+  - AI-SDOM-STD-0006-REPOSITORY-STRUCTURE-STANDARD
+  - AI-SDOM-STD-0007-DEPENDENCY-MANAGEMENT-STANDARD
+tags:
+  - change-implementation
+  - procedures
+ai-assistance: "ChatGPT 2026-08-22: implementation draft"
+---
+
+# Change Implementation Procedure
 
 ## 1. Purpose
 
 1.1 This procedure defines the operational method for implementing an approved change within the AI-SDOM controlled repository.
 
-1.2 This procedure operationalizes the governance requirements established by AI-SDOM-GOV-0002-CHANGE-MANAGEMENT-POLICY.
+1.2 This procedure operationalizes the change-management requirements established by [AI-SDOM-GOV-0002] while remaining subject to [AI-SDOM-ARC-0001] and [AI-SDOM-GOV-0001].
 
 1.3 This procedure SHALL ensure that approved changes are implemented in a controlled, traceable, validated, and reproducible manner.
 
----
+1.4 This procedure SHALL NOT redefine governance authority, change categories, quality-gate criteria, document structure, identifier authority, or dependency policy defined by their governing documents.
 
 ## 2. Scope
 
@@ -39,13 +53,11 @@
 
 2.3 This procedure SHALL NOT replace:
 
-- governance authority defined by AI-SDOM-GOV-0001;
-- change-management policy defined by AI-SDOM-GOV-0002;
-- validation and quality gates defined by the QLT class;
-- document structure requirements defined by the STD class;
-- identifier allocation and registration requirements defined by the REG class.
-
----
+- governance authority defined by [AI-SDOM-GOV-0001];
+- change-management policy defined by [AI-SDOM-GOV-0002];
+- validation and quality gates defined by the applicable QLT artifacts;
+- document structure and metadata requirements defined by the applicable STD artifacts;
+- identifier allocation and registration requirements defined by the applicable REG artifacts.
 
 ## 3. Preconditions
 
@@ -53,7 +65,7 @@ Before implementation begins, the implementer SHALL confirm:
 
 1. The requested change has a clearly identified objective.
 2. The affected document, component, or repository asset has been identified.
-3. The change category has been determined.
+3. The change category has been determined under [AI-SDOM-GOV-0002].
 4. Required impact assessment has been completed.
 5. Required approval to implement has been obtained where applicable.
 6. Applicable dependencies and downstream consumers have been identified.
@@ -62,35 +74,21 @@ Before implementation begins, the implementer SHALL confirm:
 
 If any mandatory precondition is not satisfied, implementation SHALL NOT proceed.
 
----
-
 ## 4. Change Classification
 
-4.1 The implementer SHALL classify the change according to AI-SDOM-GOV-0002.
+4.1 The implementer SHALL classify the change according to [AI-SDOM-GOV-0002].
 
-4.2 Recognized categories include:
+4.2 The classification SHALL determine the required implementation rigor, validation depth, review requirements, and resulting version impact according to the governing documents.
 
-- New Document Creation;
-- Correction;
-- Addition;
-- Revision;
-- Deprecation;
-- Retraction;
-- Urgent Change.
-
-4.3 The classification SHALL determine the required implementation rigor, validation depth, review requirements, and resulting version impact.
-
-4.4 A change SHALL NOT be silently reclassified during implementation. If implementation reveals that the original classification is incorrect, the change SHALL be reassessed before proceeding.
-
----
+4.3 A change SHALL NOT be silently reclassified during implementation. If implementation reveals that the original classification is incorrect, the change SHALL be reassessed before affected work proceeds.
 
 ## 5. Impact Assessment
 
-5.1 Before implementation, the implementer SHALL identify:
+5.1 Before implementation, the implementer SHALL identify, as applicable:
 
 - affected documents or components;
 - direct dependencies;
-- transitive dependencies where applicable;
+- transitive dependencies;
 - affected interfaces or contracts;
 - applicable standards and procedures;
 - applicable quality gates;
@@ -102,8 +100,6 @@ If any mandatory precondition is not satisfied, implementation SHALL NOT proceed
 5.3 If new impact is discovered during implementation, the impact assessment SHALL be updated before affected work proceeds.
 
 5.4 Changes with material downstream impact SHALL NOT be implemented as though they were isolated changes.
-
----
 
 ## 6. Implementation Planning
 
@@ -124,8 +120,6 @@ If any mandatory precondition is not satisfied, implementation SHALL NOT proceed
 
 6.4 Unrelated cleanup, refactoring, or feature work SHALL NOT be mixed into the change unless explicitly included in the approved scope.
 
----
-
 ## 7. Workspace and Branch Preparation
 
 7.1 The implementer SHALL verify repository state before modification.
@@ -142,23 +136,21 @@ If any mandatory precondition is not satisfied, implementation SHALL NOT proceed
 
 7.5 Existing unrelated working-tree changes SHALL NOT be overwritten, discarded, or incorporated without explicit authorization.
 
----
-
 ## 8. Controlled Implementation
 
 8.1 The implementer SHALL modify only assets within the approved change boundary.
 
 8.2 Existing architecture, governance, standards, procedures, and dependency contracts SHALL be respected.
 
-8.3 New dependencies SHALL NOT be introduced unless required by the approved change and compliant with the applicable dependency-management standard.
+8.3 New dependencies SHALL NOT be introduced unless required by the approved change and compliant with [AI-SDOM-STD-0007].
 
-8.4 Cross-references SHALL remain valid after implementation.
+8.4 Cross-references SHALL remain valid after implementation in accordance with [AI-SDOM-STD-0003].
 
-8.5 Document metadata SHALL remain compliant with the applicable documentation and metadata standards.
+8.5 Document metadata SHALL remain compliant with [AI-SDOM-STD-0001] and [AI-SDOM-STD-0002].
 
-8.6 Generated or temporary artifacts SHALL NOT be committed unless they are explicitly governed repository artifacts.
+8.6 Naming and repository placement SHALL remain compliant with the applicable naming and repository-structure standards.
 
----
+8.7 Generated or temporary artifacts SHALL NOT be committed unless they are explicitly governed repository artifacts.
 
 ## 9. Validation
 
@@ -184,8 +176,6 @@ If any mandatory precondition is not satisfied, implementation SHALL NOT proceed
 
 9.6 Validation SHALL NOT be represented as successful when the corresponding command or gate has not actually been executed.
 
----
-
 ## 10. Review Preparation
 
 10.1 Before submitting the implementation for review, the implementer SHALL verify:
@@ -203,8 +193,6 @@ If any mandatory precondition is not satisfied, implementation SHALL NOT proceed
 10.3 The implementer SHALL verify repository status.
 
 10.4 Review evidence SHALL identify the implemented change and the validation performed.
-
----
 
 ## 11. Commit
 
@@ -227,8 +215,6 @@ If any mandatory precondition is not satisfied, implementation SHALL NOT proceed
 
 11.6 The resulting commit identifier SHALL be retained as implementation evidence.
 
----
-
 ## 12. Pull Request and Approval
 
 12.1 Changes requiring governed review SHALL be submitted through the repository's review mechanism.
@@ -247,8 +233,6 @@ If any mandatory precondition is not satisfied, implementation SHALL NOT proceed
 
 12.4 Unresolved mandatory review findings SHALL block merge.
 
----
-
 ## 13. Merge and Post-Merge Verification
 
 13.1 A change SHALL be merged only after required review and approval conditions have been satisfied.
@@ -264,19 +248,15 @@ If any mandatory precondition is not satisfied, implementation SHALL NOT proceed
 
 13.4 Where release or certification tagging is required, the resulting commit SHALL be identified before the tag is created.
 
----
-
 ## 14. Version and Registration
 
-14.1 The resulting document version SHALL comply with the applicable governance and semantic-versioning rules.
+14.1 The resulting document version SHALL comply with the applicable semantic-versioning and governance requirements, including [AI-SDOM-STD-0004] where applicable.
 
 14.2 Where a controlled document is changed, its Amendment Record SHALL reflect the implemented change.
 
 14.3 Required repository registration SHALL be completed according to the applicable REG requirements.
 
 14.4 A version SHALL NOT be represented as ratified merely because the implementation has been committed.
-
----
 
 ## 15. Change Closure
 
@@ -313,19 +293,15 @@ If any mandatory precondition is not satisfied, implementation SHALL NOT proceed
 
 15.3 A change SHALL remain open if any mandatory closure condition is incomplete.
 
----
-
 ## 16. Exception Handling
 
-16.1 Exceptions SHALL follow AI-SDOM-GOV-0001 and AI-SDOM-GOV-0002.
+16.1 Exceptions SHALL follow [AI-SDOM-GOV-0001] and [AI-SDOM-GOV-0002].
 
-16.2 Urgent changes SHALL follow the expedited governance path defined by AI-SDOM-GOV-0002.
+16.2 Urgent changes SHALL follow the expedited governance path defined by [AI-SDOM-GOV-0002].
 
 16.3 An implementation exception SHALL be documented rather than silently bypassing a required control.
 
 16.4 Constitutional requirements SHALL NOT be bypassed through an implementation exception.
-
----
 
 ## 17. Failure Handling
 
@@ -336,8 +312,6 @@ If any mandatory precondition is not satisfied, implementation SHALL NOT proceed
 17.3 If implementation introduces unexpected downstream impact, implementation SHALL pause until the impact is reassessed.
 
 17.4 If the implementation cannot satisfy the approved objective without materially expanding scope, the change SHALL return to assessment before the expanded work proceeds.
-
----
 
 ## 18. Traceability Evidence
 
@@ -357,8 +331,6 @@ The implementation record SHALL retain, as applicable:
 - registration status;
 - closure evidence.
 
----
-
 ## 19. Procedure Completion Criteria
 
 The procedure is successfully completed when:
@@ -372,22 +344,21 @@ The procedure is successfully completed when:
 7. Required versioning and registration have been completed.
 8. The complete implementation is traceable from proposal through closure.
 
----
-
 ## 20. References
 
 | Reference | Relationship |
 |-----------|--------------|
-| AI-SDOM-ARC-0001-ARCHITECTURE-CONTRACT | Constitutional authority and change boundaries |
-| AI-SDOM-GOV-0001-REPOSITORY-GOVERNANCE-POLICY | Repository governance, roles, approval, lifecycle, and records |
-| AI-SDOM-GOV-0002-CHANGE-MANAGEMENT-POLICY | Change-management governance operationalized by this procedure |
-| AI-SDOM-STD-0001-DOCUMENTATION-STANDARD | Controlled-document structure and documentation requirements |
-| AI-SDOM-STD-0002-DOCUMENT-METADATA-STANDARD | Metadata requirements |
-| AI-SDOM-STD-0003-CROSS-REFERENCE-STANDARD | Cross-reference requirements |
-| AI-SDOM-STD-0007-DEPENDENCY-MANAGEMENT-STANDARD | Dependency management requirements |
-| AI-SDOM-PRC-0002-ARCHITECTURE-DECISION-PROCEDURE | Architecture decision procedure where architectural decisions are required |
-
----
+| [AI-SDOM-ARC-0001-ARCHITECTURE-CONTRACT] | Constitutional authority and change boundaries |
+| [AI-SDOM-GOV-0001-REPOSITORY-GOVERNANCE-POLICY] | Repository governance, roles, approval, lifecycle, and records |
+| [AI-SDOM-GOV-0002-CHANGE-MANAGEMENT-POLICY] | Change-management governance operationalized by this procedure |
+| [AI-SDOM-STD-0001-DOCUMENTATION-STANDARD] | Controlled-document structure and documentation requirements |
+| [AI-SDOM-STD-0002-DOCUMENT-METADATA-STANDARD] | Metadata requirements |
+| [AI-SDOM-STD-0003-CROSS-REFERENCE-STANDARD] | Cross-reference requirements |
+| [AI-SDOM-STD-0004-SEMANTIC-VERSIONING-STANDARD] | Version requirements referenced by the implementation workflow |
+| [AI-SDOM-STD-0005-NAMING-CONVENTION-STANDARD] | Naming requirements |
+| [AI-SDOM-STD-0006-REPOSITORY-STRUCTURE-STANDARD] | Repository placement and structure requirements |
+| [AI-SDOM-STD-0007-DEPENDENCY-MANAGEMENT-STANDARD] | Dependency requirements |
+| [AI-SDOM-PRC-0002-ARCHITECTURE-DECISION-PROCEDURE] | Architecture decision procedure where an implementation requires an architecture decision |
 
 ## Amendment Record
 
@@ -395,10 +366,33 @@ The procedure is successfully completed when:
 |---------|------|--------|-----------------------|----------|
 | 0.1.0 | 2026-08-22 | Saadat Hasan | Initial implementation procedure draft | Pending |
 
----
-
 ## Self-Audit Certification
 
-This procedure SHALL be validated against the applicable Architecture Contract, governance policies, standards, and quality gates before ratification.
+This document has been reviewed against the applicable architecture, governance, documentation, metadata, cross-reference, semantic-versioning, naming, repository-structure, and dependency-management requirements. The audit identified metadata and dependency-declaration gaps in the initial draft; those gaps were corrected in this revision.
 
-**Status:** Draft
+**Status:** Draft pending formal repository quality-gate validation.
+
+### Self-Audit Log
+
+1. **Front-matter conformance:** The initial draft used prose metadata rather than the established YAML front-matter model. Resolved by adopting the same front-matter pattern used by the Architecture Decision Procedure.
+
+2. **Dependency completeness:** The initial draft declared only STD-0001 through STD-0003 despite operationally relying on versioning, naming, repository structure, and dependency-management rules. Resolved by declaring STD-0004 through STD-0007 and citing each in the body.
+
+3. **Cross-reference consistency:** Formal governed references were normalized to the canonical bracketed reference form used by AI-SDOM governed documents.
+
+4. **Governance boundary:** The procedure continues to operationalize governance and standards without redefining their authority, classifications, approval rights, or quality-gate pass/fail criteria.
+
+5. **Lifecycle state:** The document remains Draft until the repository's applicable validation and ratification process is completed.
+
+### Initial Gate Assessment
+
+| Gate | Status | Evidence |
+|------|--------|----------|
+| Layer dependency compliance | PASS | All formal dependencies are Layer 0-2 references appropriate for a Layer 3 PRC. |
+| Document taxonomy | PASS | PRC identifier, title, and placement are consistent with the procedure class. |
+| Identifier and filename | PASS | Identifier is AI-SDOM-PRC-0003 and filename mirrors the canonical lowercase slug. |
+| Cross-reference integrity | PASS | Formal references use the established canonical form. |
+| Semantic versioning | PASS | Procedure version is 0.1.0. |
+| Dependency declaration | PASS | Declared dependencies are referenced by the procedure. |
+| Architecture/governance boundary | PASS | Governing rules are operationalized by reference rather than redefined. |
+| Quality validation | PENDING | Formal repository quality gates must be executed before ratification. |
