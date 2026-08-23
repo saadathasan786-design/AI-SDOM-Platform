@@ -120,7 +120,7 @@ test("integration: real project source analyzes with only explainable findings (
       }
     }
     for (const dir of rootDirs) {
-      await walk(path.join(process.cwd(), "..", dir), dir);
+      await walk(path.join(process.cwd(), dir), dir);
     }
     return files;
   }

@@ -116,7 +116,7 @@ test("integration: running all five advisors against the same real context in pa
 });
 
 test("integration: real markup from this project's own boilerplates analyzes successfully", async () => {
-  const projectRoot = path.join(process.cwd(), "..");
+  const projectRoot = process.cwd();
   const realPaths = [
     "elementor-widget-boilerplate/widgets/class-custom-widget.php",
     "gutenberg-block-boilerplate/src/save.js",

@@ -126,7 +126,7 @@ test("integration: real project source analyzes successfully with bounded, plaus
       }
     }
     for (const dir of rootDirs) {
-      await walk(path.join(process.cwd(), "..", dir), dir);
+      await walk(path.join(process.cwd(), dir), dir);
     }
     return files;
   }

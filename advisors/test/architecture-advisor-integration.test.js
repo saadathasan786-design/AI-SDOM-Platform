@@ -116,7 +116,7 @@ test("integration: real project source (this repository's own generators/ and ad
       }
     }
     for (const dir of rootDirs) {
-      await walk(path.join(process.cwd(), "..", dir), dir);
+      await walk(path.join(process.cwd(), dir), dir);
     }
     return files;
   }
