@@ -34,6 +34,8 @@
  */
 
 import fs from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { listAgentCatalog, runAgentWithReport, checkCompatibility } from "../agents/index.js";
 import { resolveProjectSource } from "../project-discovery/resolve-project-source.js";
 
@@ -290,7 +292,7 @@ export async function main(argv) {
 }
 
 // Only runs when executed directly -- never when imported by tests.
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
   const { exitCode, output } = await main(process.argv.slice(2));
   if (output) {
     if (exitCode === 0) console.log(output);
