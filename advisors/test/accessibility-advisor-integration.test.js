@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { runAdvisorWithReport, listAdvisorCatalog, getAdvisorMetadata, isAvailable } from "../index.js";
 
 function file(p, content) {
@@ -116,7 +117,7 @@ test("integration: running all five advisors against the same real context in pa
 });
 
 test("integration: real markup from this project's own boilerplates analyzes successfully", async () => {
-  const projectRoot = process.cwd();
+  const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
   const realPaths = [
     "elementor-widget-boilerplate/widgets/class-custom-widget.php",
     "gutenberg-block-boilerplate/src/save.js",

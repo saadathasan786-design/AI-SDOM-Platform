@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { runAdvisorWithReport, listAdvisorCatalog, getAdvisorMetadata, isAvailable } from "../index.js";
 
 function file(p, content) {
@@ -120,7 +121,7 @@ test("integration: real project source analyzes with only explainable findings (
       }
     }
     for (const dir of rootDirs) {
-      await walk(path.join(process.cwd(), dir), dir);
+      await walk(path.join(path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../.."), dir), dir);
     }
     return files;
   }
