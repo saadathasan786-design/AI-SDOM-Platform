@@ -83,12 +83,36 @@ Stage 15A: whole-system architecture certification review (production
 -freeze recommended). Stage 15B: documentation certification review
 (found significant, quantified documentation drift — a stale README, six
 undocumented shared utilities, several stale adapter docs, and an entire
-missing category of repository-level documentation). Stage 15C (this
-history's most recent entry): implemented every correction Stage 15B
-identified.
+missing category of repository-level documentation). Stage 15C: implemented
+every correction Stage 15B identified.
+
+## Release v1.0.0 — Production Release
+
+The AI-SDOM Platform v1.0.0 release packages the production-frozen
+architecture and implementation certified through Stage 15A, with the
+documentation corrections completed through Stage 15C. The release
+includes the four framework families (Generator, Advisor, Agent,
+Workflow), WordPress specialization, Project Discovery, Knowledge Graph
+and Memory integration, CLI and VS Code adapters, MCP integration and
+WordPress control capabilities, together with the governed standards,
+procedures, templates, registers, and architecture documentation
+established throughout the preceding stages.
+
+Release readiness was additionally validated through the merged
+production-readiness work, including 185 MCP tests with zero failures,
+zero skipped/cancelled tests, and an `npm audit` result reporting zero
+vulnerabilities. The post-merge service-business validator path-resolution
+fix was subsequently validated on `main` with a green GitHub Actions
+check.
+
+This entry records the intended contents and certification basis of the
+v1.0.0 production release; the formal Git tag and GitHub Release are
+created only after the release-preparation change is merged and the final
+release gate passes.
 
 ## Current status
 
 Production-frozen at the architecture and implementation level (Stage
-15A); documentation now brought current as of Stage 15C. See
-`docs/PRODUCTION-READINESS.md` for the current certification summary.
+15A); documentation brought current as of Stage 15C; v1.0.0 release
+preparation in progress. See `docs/PRODUCTION-READINESS.md` for the
+current certification summary.
