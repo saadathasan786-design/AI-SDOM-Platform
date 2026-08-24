@@ -1,7 +1,8 @@
 import { existsSync, readFileSync } from 'node:fs';
-import { join, resolve } from 'node:path';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const root = resolve(new URL('..', import.meta.url).pathname);
+const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const failures = [];
 
 function requireFile(relativePath) {
