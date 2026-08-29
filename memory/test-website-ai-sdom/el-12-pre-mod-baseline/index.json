@@ -1,0 +1,14 @@
+[
+  {
+    "id": "snap_2026-08-29T00-05-33-287Z_4b1a4432",
+    "timestamp": "2026-08-29T00:05:33.287Z",
+    "memory_schema_version": "1.0",
+    "source": "knowledge-graph",
+    "scope": {
+      "client_id": "test-website-ai-sdom",
+      "project_id": "el-12-pre-mod-baseline"
+    },
+    "hash": "4b1a4432a1fd22c6b2a90d7dea928fded6435988bb5b4ac5381d7c25103ca64e",
+    "data_schema_version": "1.0"
+  }
+]

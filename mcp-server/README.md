@@ -74,6 +74,42 @@ retrieve and compare stored snapshots. See `docs/MEMORY-MODEL.md` for the
 full schema — this store keeps verified facts only, never AI reasoning or
 speculative conclusions.
 
+## Governed Elementor document editing
+
+`wp_elementor_inspect` and `wp_elementor_patch` are a governed, reversible way
+to read and edit the Elementor content of an existing page through the
+standard WP REST API (`GET/POST /wp/v2/pages/{id}` with the writable
+`meta._elementor_data` field). The Elementor plugin itself exposes no REST
+endpoint to read or update an existing document's `_elementor_data` on this
+site, so this is the supported surface (see ADR AI-SDOM-ADR-0001 and
+PRC AI-SDOM-PRC-0004).
+
+- `wp_elementor_inspect` reads the document, returns its stable SHA-256, and
+  optionally the settings of one element. Read-only.
+- `wp_elementor_patch` performs the governed inspect -> snapshot -> validate
+  -> (dry-run | write -> verify -> rollback) cycle for a single property of a
+  single element. Use `dry_run: true` to preview without writing, and pass the
+  `expected_baseline_sha256` from a prior inspect to guard against stale
+  writes.
+
+Safety guards enforced by the service (`mcp-server/elementor.js`):
+
+- **Read validation** — a page whose `_elementor_data` does not read back as a
+  complete, parseable array (e.g. a server-truncated value) is refused; the
+  tool never operates on partial data.
+- **Minimal-diff / structural guard** — only the targeted property of the
+  targeted element changes; any change to element ids, order, counts, types,
+  `__globals__` keys, or image ids is refused unless `allow_structural` is
+  explicit.
+- **Stale-baseline guard** — a write whose expected SHA-256 does not match the
+  current document aborts.
+- **Dry-run** — reports the computed change without writing.
+- **Verify + rollback** — after writing, the document is re-read and its hash
+  checked; on mismatch the pre-write document is restored.
+
+Run `npm test` in this folder to run the unit and read-only live-invocation
+tests for this capability.
+
 ## Extending it
 
 - **WooCommerce**: install/activate WooCommerce, then use `wp_rest_request`

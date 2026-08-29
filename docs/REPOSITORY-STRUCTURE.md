@@ -38,8 +38,13 @@ wp-dev-boilerplate/
 │   └── test/
 ├── cli/                        advisor-cli.js, agent-cli.js, workflow-cli.js
 ├── mcp-server/                  MCP server: framework tools, WP REST client,
-│   │                             Knowledge Graph, Memory Store, Platform API
+│   │                             Knowledge Graph, Memory Store, Platform API,
+│   │                             Elementor service (elementor.js, elementor-tools.js)
 │   └── test/
+├── 03-PROCEDURES/                Governed procedures (PRC-0002, PRC-0003, PRC-0004)
+├── 04-TEMPLATES/                 Governed templates (ADR template)
+├── 05-REGISTERS/                 Governed registers (ADR register)
+├── 06-DECISIONS/                 Governed decisions (ADRs, e.g. AI-SDOM-ADR-0001)
 ├── vscode-advisor-extension/    VS Code: run Advisors
 ├── vscode-agent-extension/       VS Code: run Agents
 ├── vscode-workflow-extension/     VS Code: run Workflows

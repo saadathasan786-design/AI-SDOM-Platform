@@ -1,0 +1,14 @@
+[
+  {
+    "id": "snap_2026-08-27T12-57-02-612Z_c9985407",
+    "timestamp": "2026-08-27T12:57:02.612Z",
+    "memory_schema_version": "1.0",
+    "source": "knowledge-graph",
+    "scope": {
+      "client_id": "test-website-ai-sdom",
+      "project_id": "initial-baseline"
+    },
+    "hash": "c99854074133122f8451fb1210356abee1a107cbf09b87fdccaac30480d5199d",
+    "data_schema_version": "1.0"
+  }
+]
