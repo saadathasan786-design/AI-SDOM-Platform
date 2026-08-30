@@ -107,8 +107,19 @@ Safety guards enforced by the service (`mcp-server/elementor.js`):
 - **Verify + rollback** — after writing, the document is re-read and its hash
   checked; on mismatch the pre-write document is restored.
 
-Run `npm test` in this folder to run the unit and read-only live-invocation
-tests for this capability.
+## Running the tests
+
+- `npm test` runs the normal **offline** test suite (`test/*.test.js`) — unit,
+  contract, and real-invocation tests that need no live WordPress site. This
+  is what runs in CI.
+- `npm run test:live` runs the deliberate **live** WordPress/Elementor tests
+  (`test-live/*.test.js`). These are read-only `wp_elementor_inspect` calls
+  against a real Elementor page and are opt-in: they require a functioning
+  WordPress connection.
+- The live tests require `WP_BASE_URL`, `WP_USERNAME`, and
+  `WP_APP_PASSWORD`, normally supplied through the local `.env`.
+- **Credentials must never be committed.** `.env` is gitignored; never paste
+  an Application Password (or any secret) into source or tests.
 
 ## Extending it
 

@@ -73,6 +73,22 @@ The governed mutation SHALL follow an inspect -> snapshot -> validate ->
 - verifies the write by re-reading and comparing the document hash, and
   rolls back to the pre-write document on verification failure.
 
+Validation of this capability SHALL be split into an offline suite and an
+opt-in live validation test:
+
+- `npm test` runs the offline suite (`mcp-server/test/*.test.js`), including
+  the Elementor unit tests, with no live WordPress connection required, and
+  is suitable for CI;
+- `npm run test:live` runs the deliberate live validation test
+  (`mcp-server/test-live/elementor-mcp-real-invocation.test.js`), which
+  performs read-only `wp_elementor_inspect` calls against a connected
+  WordPress site, and SHALL be opt-in rather than part of the default
+  offline suite or of CI.
+
+The live validation test requires working WordPress credentials
+(`WP_BASE_URL`, `WP_USERNAME`, `WP_APP_PASSWORD`), normally supplied through
+the local `.env`. Credentials SHALL NOT be committed to the repository.
+
 ## Consequences
 
 Positive:

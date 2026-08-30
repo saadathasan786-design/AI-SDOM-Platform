@@ -158,7 +158,32 @@ The mutation record SHALL retain, as applicable:
 | Verification failure | Rollback to pre-write document, re-verify restoration |
 | Rollback failure | Escalate; do not mark complete |
 
-## 12. References
+## 12. Validation Testing
+
+12.1 The Elementor capability SHALL be validated by the automated test
+suites in the mcp-server:
+
+- `npm test` runs the offline suite (`test/*.test.js`), including the
+  Elementor unit and contract tests, with no live WordPress connection
+  required;
+- `npm run test:live` runs the deliberate live validation test
+  (`test-live/elementor-mcp-real-invocation.test.js`), which performs
+  read-only `wp_elementor_inspect` calls against the connected WordPress
+  site to confirm transformable documents are returned and truncated or
+  invalid documents are refused.
+
+12.2 The live validation test SHALL be opt-in: it SHALL NOT be part of the
+default offline suite or of CI, and SHALL run only when the operator
+provides working WordPress credentials (`WP_BASE_URL`, `WP_USERNAME`,
+`WP_APP_PASSWORD`), normally supplied through the local `.env`. Credentials
+SHALL NOT be committed to the repository.
+
+12.3 Live validation via this automated suite complements, and SHALL NOT
+replace, the governed mutation procedure's read-before-write, snapshot,
+verify, and rollback steps ([AI-SDOM-ARC-0001 (Section 7.6)] and
+[AI-SDOM-ARC-0001 (Section 7.2)]).
+
+## 13. References
 
 | Reference | Relationship |
 |-----------|--------------|
