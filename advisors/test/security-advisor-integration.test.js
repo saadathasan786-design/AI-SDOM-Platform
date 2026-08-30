@@ -134,15 +134,21 @@ test("integration: real project source analyzes with only explainable findings (
 
   // The real regression this test guards: RegExp.prototype.exec() calls
   // (used throughout this codebase's own regex-based analysis) must never
-  // be misclassified as child_process usage, except this advisor's own
-  // self-referential doc-string matches, which are a separately accepted,
-  // documented limitation.
+  // be misclassified as child_process usage.
+  //
+  // The live Elementor MCP integration test legitimately uses spawn() to
+  // launch the real MCP server, so that known source file is an explicitly
+  // accepted child-process usage as well.
   const childProcessFindings = report.findings.filter((f) => f.id === "child-process-usage");
+  const allowedChildProcessPaths = new Set([
+    "advisors/security/security-advisor.js",
+    "mcp-server/test-live/elementor-mcp-real-invocation.test.js",
+  ]);
+
   for (const finding of childProcessFindings) {
-    assert.equal(
-      finding.evidence.path,
-      "advisors/security/security-advisor.js",
-      `unexpected child-process-usage finding outside the advisor's own self-referential match: ${JSON.stringify(finding.evidence)}`
+    assert.ok(
+      allowedChildProcessPaths.has(finding.evidence.path),
+      `unexpected child-process-usage finding: ${JSON.stringify(finding.evidence)}`
     );
   }
 
