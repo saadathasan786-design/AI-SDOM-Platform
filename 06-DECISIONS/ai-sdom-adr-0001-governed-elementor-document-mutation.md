@@ -59,19 +59,23 @@ wp-mcp-server adapter, implemented as a third Platform API module
 (`mcp-server/elementor.js`) exposed as the `wp_elementor_inspect` and
 `wp_elementor_patch` MCP tools.
 
-The governed mutation SHALL follow an inspect -> snapshot -> validate ->
-(dry-run | write -> verify -> rollback) workflow that:
+The governed mutation SHALL follow an inspect -> plan -> validate -> snapshot
+-> (dry-run | write -> verify -> rollback) workflow. The snapshot is taken
+only after stale-baseline checking, planning, and structural validation have
+succeeded, so refused mutation requests do not persist a baseline.
 
-- refrains from operating on any `_elementor_data` read that does not parse
+The workflow SHALL:
+
+- refrain from operating on any `_elementor_data` read that does not parse
   completely and pass structural validation;
-- refuses structural changes (element ids, element order, element counts,
+- refuse structural changes (element ids, element order, element counts,
   `elType`/`widgetType` identity, `__globals__` keys, image ids) unless
   explicitly allowed;
-- supports a dry-run mode that reports the computed change without writing;
-- guards against stale writes by comparing an optional expected document
+- support a dry-run mode that reports the computed change without writing;
+- guard against stale writes by comparing an optional expected document
   SHA-256 against the current document before writing;
-- verifies the write by re-reading and comparing the document hash, and
-  rolls back to the pre-write document on verification failure.
+- verify the write by re-reading and comparing the document hash, and
+  roll back to the pre-write document on verification failure.
 
 Validation of this capability SHALL be split into an offline suite and an
 opt-in live validation test:
@@ -100,9 +104,11 @@ Positive:
   rather than a version-specific Elementor REST route, so it is not tied to
   the Elementor plugin's own REST namespace, which may change between
   installations/versions.
-- The SHA-256 + rollback semantics reuse primitives already provided by
-  `mcp-server/memory-store.js` and mirror the transactional semantics already
-  certified in the Generator Framework executor.
+- The SHA-256 + rollback semantics implement the same stable hashing
+  algorithm used by `mcp-server/memory-store.js` and mirror the transactional
+  semantics already certified in the Generator Framework executor. The
+  Elementor service intentionally keeps its hash helper local because the
+  Memory store's `hashData` helper is module-private.
 
 Negative:
 
@@ -162,8 +168,8 @@ Negative:
    Board escalation per [AI-SDOM-ARC-0001 (Section 15.5)] applies where
    required by policy.
 3. **Cross-references (PRC-0002 Section 7.6):** This ADR references only ARC
-   and STD documents (layers 0-2). It does not reference another ADR or a QLT
-   document. The Repository Register is referenced descriptively.
+   and STD documents (layers 0-2). It does not reference another ADR or a
+   QLT document. The Repository Register is referenced descriptively.
 4. **At least one alternative with rejection rationale (PRC-0002 Section
    8.2):** Four alternatives are documented with rationale.
 5. **Positive and negative consequences (PRC-0002 Section 8.2):** Both are
