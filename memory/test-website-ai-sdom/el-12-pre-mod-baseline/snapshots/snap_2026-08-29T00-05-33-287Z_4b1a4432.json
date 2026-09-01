@@ -1,0 +1,246 @@
+{
+  "id": "snap_2026-08-29T00-05-33-287Z_4b1a4432",
+  "timestamp": "2026-08-29T00:05:33.287Z",
+  "memory_schema_version": "1.0",
+  "source": "knowledge-graph",
+  "scope": {
+    "client_id": "test-website-ai-sdom",
+    "project_id": "el-12-pre-mod-baseline"
+  },
+  "hash": "4b1a4432a1fd22c6b2a90d7dea928fded6435988bb5b4ac5381d7c25103ca64e",
+  "data_schema_version": "1.0",
+  "data": {
+    "schema_version": "1.0",
+    "generated_at": "2026-08-29T00:05:33.245Z",
+    "site": {
+      "error": null,
+      "data": {
+        "title": "Test Website AI-SDOM",
+        "description": "AI-SDOM Controlled WordPress Site",
+        "url": "http://test-website-ai-sdom.com"
+      }
+    },
+    "post_types": {
+      "error": null,
+      "data": [
+        {
+          "slug": "post",
+          "name": "Posts",
+          "rest_base": "posts",
+          "hierarchical": false
+        },
+        {
+          "slug": "page",
+          "name": "Pages",
+          "rest_base": "pages",
+          "hierarchical": true
+        },
+        {
+          "slug": "attachment",
+          "name": "Media",
+          "rest_base": "media",
+          "hierarchical": false
+        },
+        {
+          "slug": "nav_menu_item",
+          "name": "Navigation Menu Items",
+          "rest_base": "menu-items",
+          "hierarchical": false
+        },
+        {
+          "slug": "wp_block",
+          "name": "Patterns",
+          "rest_base": "blocks",
+          "hierarchical": false
+        },
+        {
+          "slug": "wp_template",
+          "name": "Templates",
+          "rest_base": "templates",
+          "hierarchical": false
+        },
+        {
+          "slug": "wp_template_part",
+          "name": "Template Parts",
+          "rest_base": "template-parts",
+          "hierarchical": false
+        },
+        {
+          "slug": "wp_global_styles",
+          "name": "Global Styles",
+          "rest_base": "global-styles",
+          "hierarchical": false
+        },
+        {
+          "slug": "wp_navigation",
+          "name": "Navigation Menus",
+          "rest_base": "navigation",
+          "hierarchical": false
+        },
+        {
+          "slug": "wp_font_family",
+          "name": "Font Families",
+          "rest_base": "font-families",
+          "hierarchical": false
+        },
+        {
+          "slug": "wp_font_face",
+          "name": "Font Faces",
+          "rest_base": "font-families/(?P<font_family_id>[\\d]+)/font-faces",
+          "hierarchical": false
+        },
+        {
+          "slug": "e-floating-buttons",
+          "name": "Floating Elements",
+          "rest_base": "e-floating-buttons",
+          "hierarchical": false
+        },
+        {
+          "slug": "elementor_library",
+          "name": "My Templates",
+          "rest_base": "elementor_library",
+          "hierarchical": false
+        },
+        {
+          "slug": "sureforms_form",
+          "name": "Forms",
+          "rest_base": "sureforms_form",
+          "hierarchical": false
+        }
+      ]
+    },
+    "taxonomies": {
+      "error": null,
+      "data": [
+        {
+          "slug": "category",
+          "name": "Categories",
+          "rest_base": "categories",
+          "types": [
+            "post"
+          ]
+        },
+        {
+          "slug": "post_tag",
+          "name": "Tags",
+          "rest_base": "tags",
+          "types": [
+            "post"
+          ]
+        },
+        {
+          "slug": "nav_menu",
+          "name": "Navigation Menus",
+          "rest_base": "menus",
+          "types": [
+            "nav_menu_item"
+          ]
+        },
+        {
+          "slug": "wp_pattern_category",
+          "name": "Pattern Categories",
+          "rest_base": "wp_pattern_category",
+          "types": [
+            "wp_block"
+          ]
+        }
+      ]
+    },
+    "plugins": {
+      "error": null,
+      "data": [
+        {
+          "plugin": "elementor/elementor",
+          "name": "Elementor",
+          "version": "4.2.3"
+        },
+        {
+          "plugin": "latepoint/latepoint",
+          "name": "LatePoint",
+          "version": "5.6.10"
+        },
+        {
+          "plugin": "suretriggers/suretriggers",
+          "name": "OttoKit",
+          "version": "1.1.37"
+        },
+        {
+          "plugin": "astra-sites/astra-sites",
+          "name": "Starter Templates",
+          "version": "4.7.5"
+        },
+        {
+          "plugin": "surecookie/surecookie",
+          "name": "SureCookie",
+          "version": "1.4.0"
+        },
+        {
+          "plugin": "sureforms/sureforms",
+          "name": "SureForms",
+          "version": "2.12.5"
+        },
+        {
+          "plugin": "surerank/surerank",
+          "name": "SureRank SEO",
+          "version": "1.10.0"
+        },
+        {
+          "plugin": "header-footer-elementor/header-footer-elementor",
+          "name": "Ultimate Addons for Elementor (UAE)",
+          "version": "2.9.3"
+        }
+      ]
+    },
+    "active_theme": {
+      "error": null,
+      "data": {
+        "stylesheet": "astra",
+        "name": "Astra"
+      }
+    },
+    "rest_namespaces": {
+      "error": null,
+      "data": [
+        "oembed/1.0",
+        "elementor-one/v1",
+        "zipwp/v1",
+        "hfe/v1",
+        "surecookie/v1",
+        "sure-triggers/v1",
+        "sureforms/v1",
+        "astra/v1",
+        "elementor/v1/documents",
+        "elementor/v1",
+        "elementor-ai/v1",
+        "elementor/v1/feedback",
+        "latepoint",
+        "one-onboarding/v1",
+        "sureforms",
+        "surerank/v1",
+        "getting-started/v1",
+        "zipwp-images/v1",
+        "nps-survey/v1",
+        "gutenberg-templates/v1",
+        "bsf-core/v1",
+        "wp/v2",
+        "wp-site-health/v1",
+        "wp-block-editor/v1",
+        "wp-abilities/v1"
+      ]
+    },
+    "detected": {
+      "acf": {
+        "active": false,
+        "plugin": null
+      },
+      "elementor": {
+        "active": true,
+        "plugin": "elementor/elementor"
+      },
+      "woocommerce": {
+        "active": false,
+        "plugin": null
+      }
+    }
+  }
+}

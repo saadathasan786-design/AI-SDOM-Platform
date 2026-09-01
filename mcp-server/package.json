@@ -13,7 +13,8 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "node --test test/*.test.js"
+    "test": "node --test test/*.test.js",
+    "test:live": "node --test test-live/*.test.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.5.0",

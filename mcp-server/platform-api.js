@@ -2,12 +2,13 @@
  * Platform API — minimal internal dispatcher (Layer 1).
  *
  * Deliberately thin: a moduleName -> action -> handler registry, plus one
- * `call()` function. Introduced now (Stage 2) because Memory is a second
+ * `call()` function. Introduced at Stage 2 because Memory became a second
  * real module alongside Stage 1's Knowledge Graph — the two-consumer bar
- * set in the approved architecture for adding this layer.
+ * set in the approved architecture for adding this layer. A third real
+ * module (Elementor) is registered here the same way.
  *
  * Do NOT add validation, events, middleware, retries, or versioning here
- * until a THIRD module needs something this shape can't already do. This
+ * until a further module needs something this shape can't already do. This
  * is routing only, no business logic — modules keep their own internal
  * logic exactly as before; this just gives callers (like index.js) one
  * consistent way to reach any module instead of importing every module

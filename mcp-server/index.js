@@ -8,7 +8,13 @@ import {
 import { wpRequest } from "./wp-client.js";
 import { buildProjectGraph } from "./knowledge-graph.js";
 import { createMemoryStore } from "./memory-store.js";
+import { createElementorService } from "./elementor.js";
 import { registerModule, call as platformCall } from "./platform-api.js";
+import {
+  elementorTools,
+  handleElementorInspect,
+  handleElementorPatch,
+} from "./elementor-tools.js";
 import {
   advisorTools,
   handleAdvisorList,
@@ -43,9 +49,15 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const memory = createMemoryStore(path.join(__dirname, "..", "memory"));
 
-// Register both real modules with the minimal Platform API dispatcher.
-// Two consumers now exist (Knowledge Graph, Memory) — see platform-api.js
-// for why this stays intentionally thin.
+// Elementor Document Service — governed read + minimal-diff mutation of an
+// existing page's `_elementor_data` via the standard WP REST meta field
+// (see elementor.js and ADR AI-SDOM-ADR-0001). Shares the same wpRequest
+// and memory store as every other module; no separate auth or transport.
+const elementor = createElementorService({ wpRequest, memory });
+
+// Register the three real modules with the minimal Platform API dispatcher.
+// Three consumers now exist (Knowledge Graph, Memory, Elementor) — see
+// platform-api.js for why this stays intentionally thin.
 registerModule("knowledgeGraph", {
   build: () => buildProjectGraph(wpRequest),
 });
@@ -54,6 +66,10 @@ registerModule("memory", {
   list: memory.listSnapshots,
   get: memory.getSnapshot,
   diff: memory.diffSnapshots,
+});
+registerModule("elementor", {
+  inspect: (p) => elementor.inspect(p),
+  patch: (p) => elementor.patch(p),
 });
 
 const server = new Server(
@@ -255,6 +271,7 @@ const tools = [
   ...agentTools,
   ...workflowTools,
   ...generatorTools,
+  ...elementorTools,
 ];
 
 server.setRequestHandler(ListToolsRequestSchema, async () => ({ tools }));
@@ -448,6 +465,14 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       }
       case "generator_getFrameworkCompatibility": {
         result = await handleGeneratorGetFrameworkCompatibility(args);
+        break;
+      }
+      case "wp_elementor_inspect": {
+        result = await handleElementorInspect({ service: elementor, args });
+        break;
+      }
+      case "wp_elementor_patch": {
+        result = await handleElementorPatch({ service: elementor, args });
         break;
       }
       default:

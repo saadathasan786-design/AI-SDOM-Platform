@@ -1,0 +1,26 @@
+[
+  {
+    "id": "snap_2026-08-29T23-23-28-379Z_35e2c73f",
+    "timestamp": "2026-08-29T23:23:28.379Z",
+    "memory_schema_version": "1.0",
+    "source": "elementor-document",
+    "scope": {
+      "client_id": "test-website-ai-sdom",
+      "project_id": "el-17-controlled-mutation-test"
+    },
+    "hash": "35e2c73fb8434a11c66e454e189fc357c3dafe194d891ecddb71081bab11209d",
+    "data_schema_version": null
+  },
+  {
+    "id": "snap_2026-08-29T23-26-42-315Z_d6111509",
+    "timestamp": "2026-08-29T23:26:42.315Z",
+    "memory_schema_version": "1.0",
+    "source": "elementor-document",
+    "scope": {
+      "client_id": "test-website-ai-sdom",
+      "project_id": "el-17-controlled-mutation-test"
+    },
+    "hash": "d61115093eed8541f8737ac0aa6f61f1f7fb4f3b261fe4ab84081b1d35772981",
+    "data_schema_version": null
+  }
+]
