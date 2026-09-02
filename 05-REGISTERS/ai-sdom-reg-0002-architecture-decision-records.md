@@ -1,8 +1,15 @@
-# Repository Register — Architecture Decision Records
+# Register — Architecture Decision Records
 
-This directory is the Repository Register for Architecture Decision Records
-(ADRs), per [AI-SDOM-STD-0006 (Section 9)] and [AI-SDOM-PRC-0002
-(Section 10.2)].
+**Identifier:** AI-SDOM-REG-0002-ARCHITECTURE-DECISION-RECORDS
+**Version:** 1.0.0
+**Layer:** 5
+**Dependencies:** [AI-SDOM-ARC-0001-ARCHITECTURE-CONTRACT]
+
+This register is the per-class register for Architecture Decision Records
+(ADRs). It is distinct from the master Repository Register
+([AI-SDOM-REG-0001-REPOSITORY-REGISTER]), which is the authoritative
+inventory of all governed documents. This register records ADRs per
+[AI-SDOM-STD-0006 (Section 9)] and [AI-SDOM-PRC-0002 (Section 10.2)].
 
 ## Identifier Authority
 
