@@ -1,7 +1,7 @@
 # Repository Governance Policy
 
 **Identifier:** AI-SDOM-GOV-0001-REPOSITORY-GOVERNANCE-POLICY  
-**Version:** 0.1.0  
+**Version:** 0.2.0  
 **Lifecycle State:** Active  
 **Layer:** 1  
 **Dependencies:** [AI-SDOM-ARC-0001-ARCHITECTURE-CONTRACT]  
@@ -278,15 +278,22 @@ The approval thresholds required for each document class follow [AI-SDOM-ARC-000
 
 11.2 Governance Board Membership Register
 
-The current members of the Governance Board are recorded here. This register is maintained as a living section of this document.
+The current members of the Governance Board are recorded here. This register is maintained as a living section of this document. This first amendment names the initial members, constituting the initial Governance Board per [AI-SDOM-ARC-0001 (Section 15.1, Section 15.2)] and [Section 3.2.2] as recorded by the repository's founding authors.
 
 | Name/Role | Member Since | Term Expires | Appointed By |
 |-----------|-------------|--------------|--------------|
-| *Initial seat 1* | 2026-07-31 | 2027-07-31 | Founding authors |
-| *Initial seat 2* | 2026-07-31 | 2027-07-31 | Founding authors |
-| *Initial seat 3* | 2026-07-31 | 2027-07-31 | Founding authors |
+| Saadat Hasan | 2026-07-31 | 2027-07-31 | Founding authors |
+| Arfat Hasan | 2026-07-31 | 2027-07-31 | Founding authors |
+| Lubna Saadat | 2026-07-31 | 2027-07-31 | Founding authors |
 
-*Initial Board members shall be named in the first amendment to this document.*
+### 11.3 Domain Maintainer Appointments
+
+The following Domain Maintainer appointments are recorded here. This register is maintained as a living section of this document and records the appointed occupants of the Domain Maintainer roles defined in [Section 3.3] and [Section 3.5].
+
+| Role | Holder | Appointed On | Term Expires | Appointed By |
+|------|--------|--------------|--------------|--------------|
+| PRC Domain Maintainer | Saadat Hasan | 2026-09-03 | 2027-09-03 | Governance Board |
+| Quality Domain Maintainer | Lubna Saadat | 2026-09-03 | 2027-09-03 | Governance Board |
 
 ---
 
@@ -347,6 +354,7 @@ The current members of the Governance Board are recorded here. This register is 
 
 | Version | Date       | Author | Description of Change | Approval |
 |---------|------------|--------|-----------------------|----------|
+| 0.2.0   | 2026-09-03 | Saadat Hasan | Constituted the initial Governance Board by naming the founding-author members in Section 11.2 and appointed the PRC Domain Maintainer and the Quality Domain Maintainer in Section 11.3 per ARC-0001 Section 15 and GOV-0001 Section 3.3/3.5. Addition per Section 8.3. | Governance Board (recorded in this amendment) |
 | 0.1.0   | 2026-07-31 | —      | Initial governance framework | Pending |
 
 ---
@@ -366,7 +374,7 @@ This document has been audited against all applicable rules in [AI-SDOM-ARC-0001
 | §5.4 | Filename mirror | PASS | ai-sdom-gov-0001-repository-governance-policy.md. |
 | §6.1 | Directory match | PASS | 01-GOVERNANCE/ corresponds to GOV class. |
 | §7.3 | Dependencies section | PASS | Dependencies lists ARC-0001. |
-| §9.1 | SemVer version | PASS | Version: 0.1.0. |
+| §9.1 | SemVer version | PASS | Version: 0.2.0. |
 | §11.2 | Filename lowercase | PASS | ai-sdom-gov-0001-repository-governance-policy.md. |
 | §12 | Reserved range | PASS | GOV-0001 falls in GOV 0001-0099. |
 | §15 | Approval thresholds not duplicated; referenced | PASS | Section 5.2 reproduces thresholds as a reference table attributed to ARC-0001 §15. |
@@ -422,8 +430,8 @@ This document has been audited against all applicable rules in [AI-SDOM-ARC-0001
 
 | Rule | Requirement | Status | Evidence |
 |------|-------------|--------|----------|
-| G06-R1 | Version field present | PASS | `Version: 0.1.0`. |
-| G06-R2 | SemVer format | PASS | 0.1.0 matches `\d+\.\d+\.\d+`. |
+| G06-R1 | Version field present | PASS | `Version: 0.2.0`. |
+| G06-R2 | SemVer format | PASS | 0.2.0 matches `\d+\.\d+\.\d+`. |
 
 **G07 — Reserved Range Usage**
 
@@ -451,7 +459,7 @@ Not applicable — this document is GOV, not ADR.
 
 | Rule | Requirement | Status | Evidence |
 |------|-------------|--------|----------|
-| G10-R2 | No direct main-branch commits | PASS | Submitted via pull request. Not yet committed. |
+| G10-R2 | No direct main-branch commits | PASS | This amendment submitted via pull request. No direct main-branch commit performed. |
 | G10-R6 | AI compliance with §14 | PASS | `ai-assistance` field present. All cross-references human-verified. |
 
 ---
@@ -469,3 +477,5 @@ The following issues were identified during the self-audit of this document and 
 4. **No Governance Board definition in ARC-0001:** [AI-SDOM-ARC-0001] references "Governance Board" in §15 but does not define its composition. This document provides that definition (Section 3.2). This is elaboration, not contradiction — [AI-SDOM-ARC-0001] acknowledges the gap in its Self-Audit Log (item 9). GOV-0001 fills the gap within the boundaries ARC-0001 defines.
 
 5. **REG-0001 cross-reference removed (layer dependency):** Initial draft referenced [AI-SDOM-REG-0001] in Sections 7.2, 12, and 14. GOV (Layer 1) may only reference layers 0 through 1 per ARC-0001 §7.1. REG is Layer 5. Resolved by replacing all formal REG-0001 identifier references with descriptive text (e.g., "the Repository Register"). This maintains layer rule compliance while preserving semantic clarity.
+
+6. **Initial Board constitution (version 0.2.0):** [AI-SDOM-ARC-0001] (Self-Audit Log item 9) and the prior Section 11.2 note required the initial Governance Board members to be named in the first amendment to this document. Because no functioning Board existed to conduct the Section 8.4 vote, this amendment records the founding authors as the initial Board, naming the members in Section 11.2 and appointing the PRC and Quality Domain Maintainers in Section 11.3, consistent with ARC-0001 §15 and Section 3.2.2. This satisfies the bootstrap requirement rather than contradicting it.
