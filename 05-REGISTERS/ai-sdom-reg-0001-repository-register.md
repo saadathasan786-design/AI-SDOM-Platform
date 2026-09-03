@@ -1,7 +1,7 @@
 # Repository Register
 
 **Identifier:** AI-SDOM-REG-0001-REPOSITORY-REGISTER  
-**Version:** 0.17.0  
+**Version:** 0.18.0  
 **Lifecycle State:** Active  
 **Layer:** 5  
 **Dependencies:** [AI-SDOM-ARC-0001-ARCHITECTURE-CONTRACT]  
@@ -41,8 +41,8 @@ The following table records every governed document currently in the repository.
 | 16 | AI-SDOM-STD-0007-DEPENDENCY-MANAGEMENT-STANDARD | Dependency Management Standard | 0.1.1 | 2 | 02-STANDARDS | Active | AI-SDOM-ARC-0001, AI-SDOM-GOV-0001, AI-SDOM-GOV-0002, AI-SDOM-GOV-0003, AI-SDOM-STD-0001, AI-SDOM-STD-0002, AI-SDOM-STD-0003, AI-SDOM-STD-0004, AI-SDOM-STD-0005, AI-SDOM-STD-0006 |
 | 17 | AI-SDOM-STD-0008-ARCHITECTURE-DECISION-STANDARD | Architecture Decision Standard | 0.1.0 | 2 | 02-STANDARDS | Active | AI-SDOM-ARC-0001, AI-SDOM-GOV-0001, AI-SDOM-GOV-0002, AI-SDOM-GOV-0003, AI-SDOM-STD-0001, AI-SDOM-STD-0002, AI-SDOM-STD-0003, AI-SDOM-STD-0004, AI-SDOM-STD-0005, AI-SDOM-STD-0006, AI-SDOM-STD-0007 |
 | 18 | AI-SDOM-PRC-0002-ARCHITECTURE-DECISION-PROCEDURE | Architecture Decision Procedure | 0.1.0 | 3 | 03-PROCEDURES | Active | AI-SDOM-ARC-0001, AI-SDOM-GOV-0001, AI-SDOM-GOV-0002, AI-SDOM-STD-0001, AI-SDOM-STD-0002, AI-SDOM-STD-0003, AI-SDOM-STD-0004, AI-SDOM-STD-0005, AI-SDOM-STD-0006, AI-SDOM-STD-0007, AI-SDOM-STD-0008 |
-| 19 | AI-SDOM-PRC-0003-CHANGE-IMPLEMENTATION-PROCEDURE | Change Implementation Procedure | 0.1.0 | 3 | 03-PROCEDURES | Draft | AI-SDOM-ARC-0001, AI-SDOM-GOV-0001, AI-SDOM-GOV-0002, AI-SDOM-STD-0001, AI-SDOM-STD-0002, AI-SDOM-STD-0003, AI-SDOM-STD-0004, AI-SDOM-STD-0005, AI-SDOM-STD-0006, AI-SDOM-STD-0007 |
-| 20 | AI-SDOM-PRC-0004-ELEMENTOR-MUTATION-PROCEDURE | Elementor Document Mutation Procedure | 0.1.0 | 3 | 03-PROCEDURES | Draft | AI-SDOM-ARC-0001, AI-SDOM-GOV-0001, AI-SDOM-GOV-0002, AI-SDOM-STD-0001, AI-SDOM-STD-0002, AI-SDOM-STD-0003, AI-SDOM-STD-0004, AI-SDOM-STD-0005, AI-SDOM-STD-0006, AI-SDOM-STD-0007 |
+| 19 | AI-SDOM-PRC-0003-CHANGE-IMPLEMENTATION-PROCEDURE | Change Implementation Procedure | 1.0.0 | 3 | 03-PROCEDURES | Active | AI-SDOM-ARC-0001, AI-SDOM-GOV-0001, AI-SDOM-GOV-0002, AI-SDOM-STD-0001, AI-SDOM-STD-0002, AI-SDOM-STD-0003, AI-SDOM-STD-0004, AI-SDOM-STD-0005, AI-SDOM-STD-0006, AI-SDOM-STD-0007 |
+| 20 | AI-SDOM-PRC-0004-ELEMENTOR-MUTATION-PROCEDURE | Elementor Document Mutation Procedure | 1.0.0 | 3 | 03-PROCEDURES | Active | AI-SDOM-ARC-0001, AI-SDOM-GOV-0001, AI-SDOM-GOV-0002, AI-SDOM-STD-0001, AI-SDOM-STD-0002, AI-SDOM-STD-0003, AI-SDOM-STD-0004, AI-SDOM-STD-0005, AI-SDOM-STD-0006, AI-SDOM-STD-0007 |
 | 21 | AI-SDOM-REG-0002-ARCHITECTURE-DECISION-RECORDS | Architecture Decision Records Register | 1.0.0 | 5 | 05-REGISTERS | Active | AI-SDOM-ARC-0001 |
 | 22 | AI-SDOM-ADR-0001-GOVERNED-ELEMENTOR-DOCUMENT-MUTATION | Governed Elementor Document Mutation via the Standard WordPress REST API | — | 1 | 06-DECISIONS | Proposed | AI-SDOM-ARC-0001, AI-SDOM-STD-0001, AI-SDOM-STD-0003, AI-SDOM-STD-0005, AI-SDOM-STD-0006, AI-SDOM-STD-0007 |
 
@@ -229,7 +229,7 @@ This document has been audited against all applicable rules in [AI-SDOM-ARC-0001
 | §6.1 | Document in correct class directory | PASS | Directory: 05-REGISTERS/ |
 | §7.3 | Dependencies section present | PASS | Dependencies lists ARC-0001 |
 | §7.5 | REG cites document whose records it holds | PASS | Dependencies: AI-SDOM-ARC-0001 |
-| §9.1 | SemVer version | PASS | Version: 0.17.0 |
+| §9.1 | SemVer version | PASS | Version: 0.18.0 |
 | §11.2 | Filename lowercase kebab-case | PASS | ai-sdom-reg-0001-repository-register.md |
 | §12 | Reserved range assignment | PASS | REG-0001 falls in REG 0001-0999 schema range |
 | §20.2 | Lifecycle state recorded | PASS | Lifecycle State: Active |
@@ -284,9 +284,9 @@ This document has been audited against all applicable rules in [AI-SDOM-ARC-0001
 
 | Rule | Requirement | Status | Evidence |
 |------|-------------|--------|----------|
-| G06-R1 | Version field present | PASS | `Version: 0.17.0` in front matter. |
-| G06-R2 | SemVer format | PASS | 0.17.0 matches `\d+\.\d+\.\d+`. |
-| G06-R3 | Version increment direction | PASS | 0.16.0 → 0.17.0: MINOR increment for the registry update recording the GOV-0001 0.1.0 → 0.2.0 version-cell change (initial Board constitution and Domain Maintainer appointments). |
+| G06-R1 | Version field present | PASS | `Version: 0.18.0` in front matter. |
+| G06-R2 | SemVer format | PASS | 0.18.0 matches `\d+\.\d+\.\d+`. |
+| G06-R3 | Version increment direction | PASS | 0.17.0 → 0.18.0 is a MINOR increment for the repository-register reconciliation recording the ratification of PRC-0003 and PRC-0004 from Draft 0.1.0 to Active 1.0.0. |
 
 **G07 — Reserved Range Usage**
 
@@ -322,6 +322,7 @@ Not applicable. This document is a REG, not an ADR. Skip.
 
 | Version | Date       | Author | Description of Change | Approval |
 |---------|------------|--------|-----------------------|----------|
+| 0.18.0  | 2026-09-04 | Saadat Hasan | Reconciled the Document Inventory with the ratified PRC-0003 and PRC-0004 procedures, updating both records from Draft 0.1.0 to Active 1.0.0. Updated the register's own current-version references (inventory row 3, ARC-0001 compliance §9.1, and G06-R1/R2/R3) from 0.17.0 to 0.18.0. No repository snapshot, identifier ranges, next-identifier values, or historical amendment records were changed. | Pending |
 | 0.17.0  | 2026-09-03 | —      | Recorded the GOV-0001 version change from 0.1.0 to 0.2.0 (initial Governance Board constitution naming the founding-author members and appointing the PRC and Quality Domain Maintainers). Updated the register's own current-version references (inventory row 3, ARC-0001 compliance §9.1, G06-R1/R2/R3) from 0.16.0 to 0.17.0 while leaving historical references unchanged. | Pending |
 | 0.16.0  | 2026-09-03 | —      | Governance-stack restoration and repository register reconciliation: restored the historical governance layer directories (01-ARCHITECTURE through 07-QUALITY); registered newly present PRC-0002, PRC-0003, PRC-0004, REG-0002, and ADR-0001; corrected the ARC-0001 directory cell from 00-ARCHITECTURE to 01-ARCHITECTURE; updated the snapshot (17→22), identifier ranges, next-available identifiers, and exhaustion status. | Pending |
 | 0.15.0  | 2026-08-02 | —      | Phase 3C-1: Registered STD-0008 (Architecture Decision Standard). Updated range tables, next identifiers, snapshot, and exhaustion. | Pending |
