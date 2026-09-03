@@ -1,11 +1,11 @@
 # Repository Register
 
 **Identifier:** AI-SDOM-REG-0001-REPOSITORY-REGISTER  
-**Version:** 0.16.0  
+**Version:** 0.17.0  
 **Lifecycle State:** Active  
 **Layer:** 5  
 **Dependencies:** [AI-SDOM-ARC-0001-ARCHITECTURE-CONTRACT]  
-**ai-assistance:** Claude 2026-07-31: initial draft; opencode (deepseek-v4-flash-free) 2026-07-31: GOV-0002 registration, QLT-0002 registration, STD-0002 registration; opencode (deepseek-v4-flash-free) 2026-08-01: GOV-0003 registration, STD-0003 registration, STD-0004 registration, STD-0005 registration, STD-0006 registration, STD-0007 registration; opencode (deepseek-v4-flash-free) 2026-08-01: 0.14.1 Phase 2K version-cell correction; opencode (deepseek-v4-flash-free) 2026-08-02: STD-0008 registration (Phase 3C-1); opencode 2026-09-03: 0.16.0 governance-stack restoration and repository register reconciliation  
+**ai-assistance:** Claude 2026-07-31: initial draft; opencode (deepseek-v4-flash-free) 2026-07-31: GOV-0002 registration, QLT-0002 registration, STD-0002 registration; opencode (deepseek-v4-flash-free) 2026-08-01: GOV-0003 registration, STD-0003 registration, STD-0004 registration, STD-0005 registration, STD-0006 registration, STD-0007 registration; opencode (deepseek-v4-flash-free) 2026-08-01: 0.14.1 Phase 2K version-cell correction; opencode (deepseek-v4-flash-free) 2026-08-02: STD-0008 registration (Phase 3C-1); opencode 2026-09-03: 0.16.0 governance-stack restoration and repository register reconciliation; opencode 2026-09-03: 0.17.0 GOV-0001 version-cell update  
 
 ---
 
@@ -25,8 +25,8 @@ The following table records every governed document currently in the repository.
 |---|------------|-------|---------|-------|-----------|----------------|--------------|
 | 1 | AI-SDOM-ARC-0001-ARCHITECTURE-CONTRACT | Architecture Contract | 1.0.0 | 0 | 01-ARCHITECTURE | Active | Dependencies: None |
 | 2 | AI-SDOM-QLT-0001-ARCHITECTURE-VALIDATION-STANDARD | Architecture Validation Standard | 1.0.0 | X | 07-QUALITY | Active | AI-SDOM-ARC-0001 |
-| 3 | AI-SDOM-REG-0001-REPOSITORY-REGISTER | Repository Register | 0.16.0 | 5 | 05-REGISTERS | Active | AI-SDOM-ARC-0001 |
-| 4 | AI-SDOM-GOV-0001-REPOSITORY-GOVERNANCE-POLICY | Repository Governance Policy | 0.1.0 | 1 | 01-GOVERNANCE | Active | AI-SDOM-ARC-0001 |
+| 3 | AI-SDOM-REG-0001-REPOSITORY-REGISTER | Repository Register | 0.17.0 | 5 | 05-REGISTERS | Active | AI-SDOM-ARC-0001 |
+| 4 | AI-SDOM-GOV-0001-REPOSITORY-GOVERNANCE-POLICY | Repository Governance Policy | 0.2.0 | 1 | 01-GOVERNANCE | Active | AI-SDOM-ARC-0001 |
 | 5 | AI-SDOM-STD-0001-DOCUMENTATION-STANDARD | Documentation Standard | 0.1.0 | 2 | 02-STANDARDS | Active | AI-SDOM-ARC-0001, AI-SDOM-GOV-0001 |
 | 6 | AI-SDOM-TPL-0001-MASTER-DOCUMENT-TEMPLATE | Master Document Template | 0.1.0 | 4 | 04-TEMPLATES | Active | AI-SDOM-ARC-0001, AI-SDOM-STD-0001 |
 | 7 | AI-SDOM-PRC-0001-DOCUMENT-DEVELOPMENT-PROCEDURE | Document Development Procedure | 0.1.0 | 3 | 03-PROCEDURES | Active | AI-SDOM-ARC-0001, AI-SDOM-GOV-0001, AI-SDOM-STD-0001 |
@@ -229,7 +229,7 @@ This document has been audited against all applicable rules in [AI-SDOM-ARC-0001
 | §6.1 | Document in correct class directory | PASS | Directory: 05-REGISTERS/ |
 | §7.3 | Dependencies section present | PASS | Dependencies lists ARC-0001 |
 | §7.5 | REG cites document whose records it holds | PASS | Dependencies: AI-SDOM-ARC-0001 |
-| §9.1 | SemVer version | PASS | Version: 0.16.0 |
+| §9.1 | SemVer version | PASS | Version: 0.17.0 |
 | §11.2 | Filename lowercase kebab-case | PASS | ai-sdom-reg-0001-repository-register.md |
 | §12 | Reserved range assignment | PASS | REG-0001 falls in REG 0001-0999 schema range |
 | §20.2 | Lifecycle state recorded | PASS | Lifecycle State: Active |
@@ -284,9 +284,9 @@ This document has been audited against all applicable rules in [AI-SDOM-ARC-0001
 
 | Rule | Requirement | Status | Evidence |
 |------|-------------|--------|----------|
-| G06-R1 | Version field present | PASS | `Version: 0.16.0` in front matter. |
-| G06-R2 | SemVer format | PASS | 0.16.0 matches `\d+\.\d+\.\d+`. |
-| G06-R3 | Version increment direction | PASS | 0.15.0 → 0.16.0: MINOR increment for the governance-stack restoration and repository register reconciliation (registration of PRC-0002/0003/0004, REG-0002, ADR-0001; corrected directory layout; updated ranges, snapshot, and exhaustion). |
+| G06-R1 | Version field present | PASS | `Version: 0.17.0` in front matter. |
+| G06-R2 | SemVer format | PASS | 0.17.0 matches `\d+\.\d+\.\d+`. |
+| G06-R3 | Version increment direction | PASS | 0.16.0 → 0.17.0: MINOR increment for the registry update recording the GOV-0001 0.1.0 → 0.2.0 version-cell change (initial Board constitution and Domain Maintainer appointments). |
 
 **G07 — Reserved Range Usage**
 
@@ -322,6 +322,7 @@ Not applicable. This document is a REG, not an ADR. Skip.
 
 | Version | Date       | Author | Description of Change | Approval |
 |---------|------------|--------|-----------------------|----------|
+| 0.17.0  | 2026-09-03 | —      | Recorded the GOV-0001 version change from 0.1.0 to 0.2.0 (initial Governance Board constitution naming the founding-author members and appointing the PRC and Quality Domain Maintainers). Updated the register's own current-version references (inventory row 3, ARC-0001 compliance §9.1, G06-R1/R2/R3) from 0.16.0 to 0.17.0 while leaving historical references unchanged. | Pending |
 | 0.16.0  | 2026-09-03 | —      | Governance-stack restoration and repository register reconciliation: restored the historical governance layer directories (01-ARCHITECTURE through 07-QUALITY); registered newly present PRC-0002, PRC-0003, PRC-0004, REG-0002, and ADR-0001; corrected the ARC-0001 directory cell from 00-ARCHITECTURE to 01-ARCHITECTURE; updated the snapshot (17→22), identifier ranges, next-available identifiers, and exhaustion status. | Pending |
 | 0.15.0  | 2026-08-02 | —      | Phase 3C-1: Registered STD-0008 (Architecture Decision Standard). Updated range tables, next identifiers, snapshot, and exhaustion. | Pending |
 | 0.14.1  | 2026-08-01 | —      | Phase 2K: updated STD-0006 and STD-0007 version cells to 0.1.1 per approved consolidation corrections. No inventory change. | Pending |
@@ -383,3 +384,5 @@ The following issues were identified during the self-audit of this document and 
 19. **STD-0008 registration (version 0.15.0):** Registered the eighth standard (AI-SDOM-STD-0008-ARCHITECTURE-DECISION-STANDARD) at version 0.1.0 per Phase 3C-1. Updated the STD universal range (0001-0099) from 7 used to 8 used. Updated next available STD identifier to 0009. Updated exhaustion status to show STD at 8.1% utilization (Green). Updated repository snapshot count from 16 to 17 documents and the STD count from 7 to 8. Updated the register's own current-version references (inventory row 3, ARC-0001 compliance §9.1, G06-R1/R2/R3) from 0.14.1 to 0.15.0 while leaving historical references unchanged. All changes follow the existing Update Procedure without introducing new patterns.
 
 20. **Governance-stack restoration and reconciliation (version 0.16.0):** Reconciled the register with the current repository after the governance-stack restoration. Registered the newly present governed documents: PRC-0002 (Architecture Decision Procedure, Active), PRC-0003 (Change Implementation Procedure, Draft), PRC-0004 (Elementor Document Mutation Procedure, Draft), REG-0002 (Architecture Decision Records Register, Active), and ADR-0001 (Governed Elementor Document Mutation via the Standard WordPress REST API, Proposed). Corrected the ARC-0001 inventory directory cell from 00-ARCHITECTURE to the restored 01-ARCHITECTURE. Updated the Current Repository Snapshot from 17 to 22 documents across eight classes and documented the restored layer directories. Updated the PRC operational range (0001-0999) from 1 used to 4 used and next available to 0005. Updated the REG schema range (0001-0999) from 1 used to 2 used and next available to 0003. Updated the ADR decision-records range (0001-9999) from 0 used to 1 used and next available to 0002. Updated the next-available-identifier per class table (PRC-0005, REG-0003, ADR-0002) and the exhaustion status table (PRC 0.4%, REG 0.2%, ADR 0.01%). ADR-0001 is inventoried at its actual lifecycle status (Proposed); its status was not changed and the ADR was not accepted. Updated the register's own current-version references (inventory row 3, ARC-0001 compliance §9.1, G06-R1/R2/R3, G05-R1) to 0.16.0 and the current ARC-0001 reference count to 16 while leaving historical references unchanged. All changes follow the existing Update Procedure without introducing new patterns.
+
+21. **GOV-0001 version-cell update (version 0.17.0):** Recorded the GOV-0001 version change from 0.1.0 to 0.2.0 in the register, reflecting the first amendment to GOV-0001 (initial Governance Board constitution naming the founding-author members and appointment of the PRC and Quality Domain Maintainers). This is a single version-cell update; no inventory, range, snapshot, or next-identifier changes. Updated the register's own current-version references (inventory row 3, ARC-0001 compliance §9.1, G06-R1/R2/R3) from 0.16.0 to 0.17.0 while leaving historical references unchanged. All changes follow the existing Update Procedure without introducing new patterns.
