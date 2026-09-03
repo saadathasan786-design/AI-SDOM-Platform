@@ -1,8 +1,9 @@
 ---
 identifier: AI-SDOM-PRC-0003-CHANGE-IMPLEMENTATION-PROCEDURE
 title: Change Implementation Procedure
-version: 0.1.0
-lifecycle-state: Draft
+version: 1.0.0
+lifecycle-state: Active
+owner: Saadat Hasan
 layer: 3
 dependencies:
   - AI-SDOM-ARC-0001-ARCHITECTURE-CONTRACT
@@ -364,13 +365,14 @@ The procedure is successfully completed when:
 
 | Version | Date | Author | Description of Change | Approval |
 |---------|------|--------|-----------------------|----------|
+| 1.0.0 | 2026-09-03 | Saadat Hasan | First full ratification: Draft 0.1.0 → Active 1.0.0. Recorded the Document Owner (owner: Saadat Hasan) designated by the PRC Domain Maintainer per GOV-0001 Section 3.4. Ratification per GOV-0001 Section 7. | PRC Domain Maintainer (Saadat Hasan) |
 | 0.1.0 | 2026-08-22 | Saadat Hasan | Initial implementation procedure draft | Pending |
 
 ## Self-Audit Certification
 
 This document has been reviewed against the applicable architecture, governance, documentation, metadata, cross-reference, semantic-versioning, naming, repository-structure, and dependency-management requirements. The audit identified metadata and dependency-declaration gaps in the initial draft; those gaps were corrected in this revision.
 
-**Status:** Draft pending formal repository quality-gate validation.
+**Status:** Active. First full ratification completed (0.1.0 Draft → 1.0.0 Active).
 
 ### Self-Audit Log
 
@@ -382,7 +384,11 @@ This document has been reviewed against the applicable architecture, governance,
 
 4. **Governance boundary:** The procedure continues to operationalize governance and standards without redefining their authority, classifications, approval rights, or quality-gate pass/fail criteria.
 
-5. **Lifecycle state:** The document remains Draft until the repository's applicable validation and ratification process is completed.
+5. **Lifecycle state:** The document was held as a Draft until the repository's applicable validation and ratification process was completed; this was resolved by the ratification recorded in item 6.
+
+6. **Ratification (version 1.0.0):** The 0.1.0 Draft was reviewed, validated against all applicable gates, and ratified to 1.0.0 Active per GOV-0001 Section 7. The transition 0.1.0 → 1.0.0 is the ratification transition (not a MAJOR/MINOR/PATCH increment) per the Semantic Versioning Standard Section 8.2. The Document Owner was designated by the PRC Domain Maintainer per GOV-0001 Section 3.4 and recorded in the front-matter `owner` field.
+
+7. **Merge ordering dependency (governance bootstrap):** This ratification relies on the PRC Domain Maintainer role established by the first amendment to [AI-SDOM-GOV-0001] (initial Board constitution and Domain Maintainer appointments, GOV-0001 version 0.2.0). This amendment SHALL be merged before the present ratification so that the documented approval authority (the Designated PRC Domain Maintainer) exists. Until that prior change is merged, this procedure's recorded approval SHALL be read as pending the establishment of the role.
 
 ### Initial Gate Assessment
 
@@ -392,7 +398,7 @@ This document has been reviewed against the applicable architecture, governance,
 | Document taxonomy | PASS | PRC identifier, title, and placement are consistent with the procedure class. |
 | Identifier and filename | PASS | Identifier is AI-SDOM-PRC-0003 and filename mirrors the canonical lowercase slug. |
 | Cross-reference integrity | PASS | Formal references use the established canonical form. |
-| Semantic versioning | PASS | Procedure version is 0.1.0. |
+| Semantic versioning | PASS | Procedure version is 1.0.0. |
 | Dependency declaration | PASS | Declared dependencies are referenced by the procedure. |
 | Architecture/governance boundary | PASS | Governing rules are operationalized by reference rather than redefined. |
-| Quality validation | PENDING | Formal repository quality gates must be executed before ratification. |
+| Quality validation | PASS | All applicable mandatory validation gates passed prior to ratification. |
