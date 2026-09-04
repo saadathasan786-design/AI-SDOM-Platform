@@ -52,11 +52,13 @@ gate holds with ZERO writes and ZERO persisted snapshots.
 
 ### Recovery Action
 
-Exceptional controlled REST write of `meta._elementor_data` only (the single
-supported, verified mutation surface), performed under the governed workflow
-described by [AI-SDOM-PRC-0004-ELEMENTOR-MUTATION-PROCEDURE]. No other site
-content was modified. Post-repair verification (parse + structural + hash
-match against the repaired baseline) succeeded.
+An exceptional, controlled direct REST write of `meta._elementor_data` only
+was used to repair the malformed document. This was outside the normal
+governed Elementor mutation workflow because that workflow correctly refused
+the malformed baseline. The write was limited to the single supported,
+verified mutation surface; no other site content was modified. The retained
+pre-repair snapshot provided rollback evidence. Post-repair verification
+(parse + structural + hash match against the repaired baseline) succeeded.
 
 ## Required Behavior (now regression-pinned)
 
@@ -83,7 +85,7 @@ mutation.
 |-----------|---------|
 | [AI-SDOM-ARC-0001-ARCHITECTURE-CONTRACT] | Layer 0 dependency; §12 identifier ranges; §12.2 registry authority |
 | [AI-SDOM-REG-0001-REPOSITORY-REGISTER] | Master inventory recording this register's identifier |
-| [AI-SDOM-PRC-0004-ELEMENTOR-MUTATION-PROCEDURE] | Governed mutation workflow the repair followed; precondition-failure requirement |
+| [AI-SDOM-PRC-0004-ELEMENTOR-MUTATION-PROCEDURE] | Governed mutation workflow whose integrity precondition refused the malformed baseline; procedure requirements are referenced descriptively |
 | [AI-SDOM-ADR-0001-GOVERNED-ELEMENTOR-DOCUMENT-MUTATION] | Decision constraining mutation to the standard WordPress REST API (descriptive reference; ADRs are referenced descriptively) |
 
 ## Amendment Record
