@@ -38,7 +38,7 @@ test("preview mode against the real theme-boilerplate/ returns fully substituted
 });
 
 test("the real theme-boilerplate/ source files are never modified by a preview run", async () => {
-  const styleCssPath = path.join(process.cwd(), "..", "theme-boilerplate", "style.css");
+  const styleCssPath = path.join(process.cwd(), "theme-boilerplate", "style.css");
   const before = await fs.readFile(styleCssPath, "utf8");
 
   setup();

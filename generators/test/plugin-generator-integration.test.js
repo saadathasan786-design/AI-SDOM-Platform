@@ -43,7 +43,7 @@ test("preview mode against the real plugin-boilerplate/ returns fully substitute
 });
 
 test("the real plugin-boilerplate/ source files are never modified by a preview run", async () => {
-  const boilerplateDir = path.join(process.cwd(), "..", "plugin-boilerplate", "plugin-boilerplate.php");
+  const boilerplateDir = path.join(process.cwd(), "plugin-boilerplate", "plugin-boilerplate.php");
   const before = await fs.readFile(boilerplateDir, "utf8");
 
   setup();
