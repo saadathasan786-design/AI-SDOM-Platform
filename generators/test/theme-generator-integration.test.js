@@ -3,10 +3,13 @@ import assert from "node:assert/strict";
 import os from "node:os";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import { _resetForTests, registerGenerator } from "../framework/generator-registry.js";
 import { runGenerator } from "../framework/executor.js";
 import { runGeneratorWithReport } from "../framework/generation-report.js";
 import { themeGenerator } from "../theme/theme-generator.js";
+
 
 async function tempDir() {
   return fs.mkdtemp(path.join(os.tmpdir(), "wp-theme-gen-test-"));
@@ -38,7 +41,7 @@ test("preview mode against the real theme-boilerplate/ returns fully substituted
 });
 
 test("the real theme-boilerplate/ source files are never modified by a preview run", async () => {
-  const styleCssPath = path.join(process.cwd(), "..", "theme-boilerplate", "style.css");
+  const styleCssPath = path.join(__dirname, "..", "..", "theme-boilerplate", "style.css");
   const before = await fs.readFile(styleCssPath, "utf8");
 
   setup();

@@ -3,6 +3,8 @@ import assert from "node:assert/strict";
 import os from "node:os";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import { _resetForTests, registerGenerator } from "../framework/generator-registry.js";
 import { runGenerator } from "../framework/executor.js";
 import { runGeneratorWithReport } from "../framework/generation-report.js";
@@ -43,7 +45,7 @@ test("preview mode against the real plugin-boilerplate/ returns fully substitute
 });
 
 test("the real plugin-boilerplate/ source files are never modified by a preview run", async () => {
-  const boilerplateDir = path.join(process.cwd(), "..", "plugin-boilerplate", "plugin-boilerplate.php");
+  const boilerplateDir = path.join(__dirname, "..", "..", "plugin-boilerplate", "plugin-boilerplate.php");
   const before = await fs.readFile(boilerplateDir, "utf8");
 
   setup();
