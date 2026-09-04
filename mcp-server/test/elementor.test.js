@@ -67,6 +67,53 @@ function makeFakeWpRequest(store) {
   };
 }
 
+// Write-counting fake used by the integrity-gate regression tests. A real
+// validation write must never be issued for a malformed/truncated baseline:
+// any POST on a bad baseline throws loudly and is counted, so the tests can
+// assert ZERO mutation calls even if the guard is later accidentally removed.
+function makeIntegrityGateWpRequest(badRaw) {
+  let writes = 0;
+  return {
+    wpRequest: async function integrityGateRequest(path, { method = "GET", body } = {}) {
+      if (method === "POST") {
+        writes += 1;
+        throw new Error("INTEGRITY-GATE VIOLATION: a mutation write was attempted on an unparseable document");
+      }
+      return {
+        meta: {
+          _elementor_edit_mode: "builder",
+          _elementor_data: badRaw,
+        },
+      };
+    },
+    writes: () => writes,
+  };
+}
+
+// Write-counting variant of makeFakeWpRequest for the valid-baseline contrast
+// test: proves the counter actually fires (1 write / 1 snapshot) whenever the
+// parse gate is satisfied, so the zero-write assertion above is meaningful.
+function makeCountingWpRequest(store) {
+  const state = store;
+  let writes = 0;
+  return {
+    wpRequest: async function countingRequest(path, { method = "GET", body } = {}) {
+      if (method === "POST" && body && body.meta && body.meta._elementor_data) {
+        writes += 1;
+        state.current = JSON.parse(body.meta._elementor_data);
+      }
+      const page = {
+        meta: {
+          _elementor_edit_mode: "builder",
+          _elementor_data: JSON.stringify(state.current),
+        },
+      };
+      return page;
+    },
+    writes: () => writes,
+  };
+}
+
 function baselineHash() {
   return sha256Stable(sampleDocument());
 }
@@ -600,6 +647,92 @@ test("an invalid or refused mutation request never persists a baseline snapshot"
 
   const snapshots = await memory.listSnapshots({ scope });
   assert.deepEqual(snapshots, [], "no baseline snapshot persisted for a request that failed planning or structural validation");
+  await fs.rm(tmp, { recursive: true, force: true });
+});
+
+// ---------------------------------------------------------------------
+// Integrity gate: malformed / truncated _elementor_data baselines must be
+// rejected as a HARD precondition failure BEFORE any governed mutation and
+// before any Memory snapshot is taken. Regression coverage for the Page 12
+// integrity incident (the live document's _elementor_data tail was corrupt,
+// e.g. a stray `,...]]`, and must never reach planning/validation/write).
+// ---------------------------------------------------------------------
+
+test("patch on a malformed _elementor_data baseline rejects, issues ZERO writes, and persists ZERO snapshots", async () => {
+  const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "el-malformed-gate-"));
+  const memory = createMemoryStore(tmp);
+  const scope = { project_id: "el-malformed-gate" };
+  const fake = makeIntegrityGateWpRequest("'definitely not serializable json {{{");
+  const service = createElementorService({ wpRequest: fake.wpRequest, memory });
+
+  await assert.rejects(
+    () =>
+      service.patch({
+        page_id: 12,
+        element_id: "w1",
+        property_path: "settings.title",
+        value: "x",
+        scope,
+      }),
+    /malformed _elementor_data/,
+    "the parse gate surfaces its clear integrity error instead of attempting the mutation"
+  );
+
+  assert.equal(fake.writes(), 0, "ZERO mutation writes issued against the live REST API");
+  const snapshots = await memory.listSnapshots({ scope });
+  assert.deepEqual(snapshots, [], "ZERO baseline snapshots persisted to Memory");
+  await fs.rm(tmp, { recursive: true, force: true });
+});
+
+test("patch on a truncated _elementor_data baseline rejects, issues ZERO writes, and persists ZERO snapshots", async () => {
+  const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "el-truncated-gate-"));
+  const memory = createMemoryStore(tmp);
+  const scope = { project_id: "el-truncated-gate" };
+  // Cut the serialized document mid-termination (missing closing brackets),
+  // exacting the real incident tail shape: JSON.parse must throw.
+  const truncated = JSON.stringify(sampleDocument()).slice(0, -3);
+  const fake = makeIntegrityGateWpRequest(truncated);
+  const service = createElementorService({ wpRequest: fake.wpRequest, memory });
+
+  await assert.rejects(
+    () =>
+      service.patch({
+        page_id: 12,
+        element_id: "w1",
+        property_path: "settings.title",
+        value: "x",
+        scope,
+      }),
+    /malformed _elementor_data/,
+    "the parse gate surfaces its clear integrity error instead of attempting the mutation"
+  );
+
+  assert.equal(fake.writes(), 0, "ZERO mutation writes issued against the live REST API");
+  const snapshots = await memory.listSnapshots({ scope });
+  assert.deepEqual(snapshots, [], "ZERO baseline snapshots persisted to Memory");
+  await fs.rm(tmp, { recursive: true, force: true });
+});
+
+test("the same counting harness performs EXACTLY one write and one snapshot on a valid baseline (proves the gate, not the counter, prevents mutation)", async () => {
+  const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "el-counting-contrast-"));
+  const state = { current: sampleDocument() };
+  const fake = makeCountingWpRequest(state);
+  const memory = createMemoryStore(tmp);
+  const scope = { project_id: "el-counting-contrast" };
+  const service = createElementorService({ wpRequest: fake.wpRequest, memory });
+
+  const res = await service.patch({
+    page_id: 12,
+    element_id: "w2",
+    property_path: "settings.editor",
+    value: "<p>Integrity gate ok</p>",
+    scope,
+  });
+
+  assert.ok(res.verified, "valid baseline patch resolves and verifies");
+  assert.equal(fake.writes(), 1, "EXACTLY one mutation write issued for a valid baseline");
+  const snapshots = await memory.listSnapshots({ scope });
+  assert.equal(snapshots.length, 1, "EXACTLY one baseline snapshot persisted for a valid baseline");
   await fs.rm(tmp, { recursive: true, force: true });
 });
 
