@@ -1,0 +1,14 @@
+[
+  {
+    "id": "snap_2026-09-04T21-52-09-681Z_6569cb82",
+    "timestamp": "2026-09-04T21:52:09.681Z",
+    "memory_schema_version": "1.0",
+    "source": "elementor-document",
+    "scope": {
+      "client_id": "test-website-ai-sdom",
+      "project_id": "el-12-elementor-pre-mod-baseline"
+    },
+    "hash": "6569cb82be962be2e52b29ff4707d30f0666f32f04aa978ee8c7ed43fd6d5c66",
+    "data_schema_version": null
+  }
+]

@@ -1,11 +1,11 @@
 # Repository Register
 
 **Identifier:** AI-SDOM-REG-0001-REPOSITORY-REGISTER  
-**Version:** 0.18.0  
+**Version:** 0.19.0  
 **Lifecycle State:** Active  
 **Layer:** 5  
 **Dependencies:** [AI-SDOM-ARC-0001-ARCHITECTURE-CONTRACT]  
-**ai-assistance:** Claude 2026-07-31: initial draft; opencode (deepseek-v4-flash-free) 2026-07-31: GOV-0002 registration, QLT-0002 registration, STD-0002 registration; opencode (deepseek-v4-flash-free) 2026-08-01: GOV-0003 registration, STD-0003 registration, STD-0004 registration, STD-0005 registration, STD-0006 registration, STD-0007 registration; opencode (deepseek-v4-flash-free) 2026-08-01: 0.14.1 Phase 2K version-cell correction; opencode (deepseek-v4-flash-free) 2026-08-02: STD-0008 registration (Phase 3C-1); opencode 2026-09-03: 0.16.0 governance-stack restoration and repository register reconciliation; opencode 2026-09-03: 0.17.0 GOV-0001 version-cell update  
+**ai-assistance:** Claude 2026-07-31: initial draft; opencode (deepseek-v4-flash-free) 2026-07-31: GOV-0002 registration, QLT-0002 registration, STD-0002 registration; opencode (deepseek-v4-flash-free) 2026-08-01: GOV-0003 registration, STD-0003 registration, STD-0004 registration, STD-0005 registration, STD-0006 registration, STD-0007 registration; opencode (deepseek-v4-flash-free) 2026-08-01: 0.14.1 Phase 2K version-cell correction; opencode (deepseek-v4-flash-free) 2026-08-02: STD-0008 registration (Phase 3C-1); opencode 2026-09-03: 0.16.0 governance-stack restoration and repository register reconciliation; opencode 2026-09-03: 0.17.0 GOV-0001 version-cell update; opencode (big-pickle) 2026-09-05: 0.19.0 REG-1000 registration (Elementor Integrity Incident and Evidence Record)  
 
 ---
 
@@ -25,7 +25,7 @@ The following table records every governed document currently in the repository.
 |---|------------|-------|---------|-------|-----------|----------------|--------------|
 | 1 | AI-SDOM-ARC-0001-ARCHITECTURE-CONTRACT | Architecture Contract | 1.0.0 | 0 | 01-ARCHITECTURE | Active | Dependencies: None |
 | 2 | AI-SDOM-QLT-0001-ARCHITECTURE-VALIDATION-STANDARD | Architecture Validation Standard | 1.0.0 | X | 07-QUALITY | Active | AI-SDOM-ARC-0001 |
-| 3 | AI-SDOM-REG-0001-REPOSITORY-REGISTER | Repository Register | 0.17.0 | 5 | 05-REGISTERS | Active | AI-SDOM-ARC-0001 |
+| 3 | AI-SDOM-REG-0001-REPOSITORY-REGISTER | Repository Register | 0.19.0 | 5 | 05-REGISTERS | Active | AI-SDOM-ARC-0001 |
 | 4 | AI-SDOM-GOV-0001-REPOSITORY-GOVERNANCE-POLICY | Repository Governance Policy | 0.2.0 | 1 | 01-GOVERNANCE | Active | AI-SDOM-ARC-0001 |
 | 5 | AI-SDOM-STD-0001-DOCUMENTATION-STANDARD | Documentation Standard | 0.1.0 | 2 | 02-STANDARDS | Active | AI-SDOM-ARC-0001, AI-SDOM-GOV-0001 |
 | 6 | AI-SDOM-TPL-0001-MASTER-DOCUMENT-TEMPLATE | Master Document Template | 0.1.0 | 4 | 04-TEMPLATES | Active | AI-SDOM-ARC-0001, AI-SDOM-STD-0001 |
@@ -45,6 +45,7 @@ The following table records every governed document currently in the repository.
 | 20 | AI-SDOM-PRC-0004-ELEMENTOR-MUTATION-PROCEDURE | Elementor Document Mutation Procedure | 1.0.0 | 3 | 03-PROCEDURES | Active | AI-SDOM-ARC-0001, AI-SDOM-GOV-0001, AI-SDOM-GOV-0002, AI-SDOM-STD-0001, AI-SDOM-STD-0002, AI-SDOM-STD-0003, AI-SDOM-STD-0004, AI-SDOM-STD-0005, AI-SDOM-STD-0006, AI-SDOM-STD-0007 |
 | 21 | AI-SDOM-REG-0002-ARCHITECTURE-DECISION-RECORDS | Architecture Decision Records Register | 1.0.0 | 5 | 05-REGISTERS | Active | AI-SDOM-ARC-0001 |
 | 22 | AI-SDOM-ADR-0001-GOVERNED-ELEMENTOR-DOCUMENT-MUTATION | Governed Elementor Document Mutation via the Standard WordPress REST API | — | 1 | 06-DECISIONS | Proposed | AI-SDOM-ARC-0001, AI-SDOM-STD-0001, AI-SDOM-STD-0003, AI-SDOM-STD-0005, AI-SDOM-STD-0006, AI-SDOM-STD-0007 |
+| 23 | AI-SDOM-REG-1000-ELEMENTOR-INTEGRITY-INCIDENT-AND-EVIDENCE | Elementor Integrity Incident and Evidence Record | 1.0.0 | 5 | 05-REGISTERS | Active | AI-SDOM-ARC-0001 |
 
 ### Column Definitions
 
@@ -59,19 +60,19 @@ The following table records every governed document currently in the repository.
 
 ### Current Repository Snapshot
 
-As of this version, the repository contains twenty-two governed documents across eight classes, organized into the restored governance layer directories (`01-ARCHITECTURE`, `01-GOVERNANCE`, `02-STANDARDS`, `03-PROCEDURES`, `04-TEMPLATES`, `05-REGISTERS`, `06-DECISIONS`, `07-QUALITY`):
+As of this version, the repository contains twenty-three governed documents across eight classes, organized into the restored governance layer directories (`01-ARCHITECTURE`, `01-GOVERNANCE`, `02-STANDARDS`, `03-PROCEDURES`, `04-TEMPLATES`, `05-REGISTERS`, `06-DECISIONS`, `07-QUALITY`):
 
 | Class | Count | Documents |
 |-------|-------|-----------|
 | ARC   | 1     | ARC-0001 |
 | GOV   | 3     | GOV-0001, GOV-0002, GOV-0003 |
 | QLT   | 2     | QLT-0001, QLT-0002 |
-| REG   | 2     | REG-0001, REG-0002 |
+| REG   | 3     | REG-0001, REG-0002, REG-1000 |
 | STD   | 8     | STD-0001, STD-0002, STD-0003, STD-0004, STD-0005, STD-0006, STD-0007, STD-0008 |
 | PRC   | 4     | PRC-0001, PRC-0002, PRC-0003, PRC-0004 |
 | TPL   | 1     | TPL-0001 |
 | ADR   | 1     | ADR-0001 |
-| **Total** | **22** | |
+| **Total** | **23** | |
 
 ---
 
@@ -119,7 +120,7 @@ The following ranges govern identifier allocation for each document class. These
 | Range       | Status               | Next Available | Total Slots | Used | Remaining | Exhaustion |
 |-------------|----------------------|----------------|-------------|------|-----------|------------|
 | 0001-0999   | Registry schemas     | 0003           | 999         | 2    | 997       | 99.8% free |
-| 1000-9999   | Filled entries       | 1000           | 9000        | 0    | 9000      | 100% free |
+| 1000-9999   | Filled entries       | 1001           | 9000        | 1    | 8999      | 99.99% free |
 
 ### ADR — Architecture Decision Records (Cross-cutting)
 
@@ -159,6 +160,7 @@ All ranges are currently at Green (0% utilization except where noted below):
 | GOV   | 0001-0099   | 3.0%        | Green  |
 | PRC   | 0001-0999   | 0.4%        | Green  |
 | REG   | 0001-0999   | 0.2%        | Green  |
+| REG   | 1000-9999   | 0.01%       | Green  |
 | QLT   | 0001-0099   | 2.0%        | Green  |
 | STD   | 0001-0099   | 8.1%        | Green  |
 | TPL   | 0001-0999   | 0.1%        | Green  |
@@ -185,7 +187,8 @@ When creating a new document, the next available identifier SHALL be taken from 
 | STD   | AI-SDOM-STD-0009-{SHORT-NAME}   | STD-0001 assigned to Documentation Standard; STD-0002 assigned to Document Metadata Standard; STD-0003 assigned to Cross-Reference Standard; STD-0004 assigned to Semantic Versioning Standard; STD-0005 assigned to Naming Convention Standard; STD-0006 assigned to Repository Structure Standard; STD-0007 assigned to Dependency Management Standard; STD-0008 assigned to Architecture Decision Standard |
 | PRC   | AI-SDOM-PRC-0005-{SHORT-NAME}   | PRC-0001 assigned to Document Development Procedure; PRC-0002 assigned to Architecture Decision Procedure; PRC-0003 assigned to Change Implementation Procedure; PRC-0004 assigned to Elementor Document Mutation Procedure |
 | TPL   | AI-SDOM-TPL-0002-{SHORT-NAME}   | TPL-0001 assigned to Master Document Template                |
-| REG   | AI-SDOM-REG-0003-{SHORT-NAME}   | REG-0001 assigned to Repository Register; REG-0002 assigned to Architecture Decision Records Register |
+| REG   | AI-SDOM-REG-0003-{SHORT-NAME}   | REG-0001 assigned to Repository Register; REG-0002 assigned to Architecture Decision Records Register; registry schemas only |
+| REG   | AI-SDOM-REG-1001-{SHORT-NAME}   | REG-1000 assigned to Elementor Integrity Incident and Evidence Record (first REG filled entry, range 1000-9999) |
 | ADR   | AI-SDOM-ADR-0002-{SHORT-NAME}   | ADR-0001 assigned to Governed Elementor Document Mutation via the Standard WordPress REST API (status: Proposed) |
 | QLT   | AI-SDOM-QLT-0003-{SHORT-NAME}   | QLT-0001 assigned to Architecture Validation Standard; QLT-0002 assigned to Repository Certification Standard |
 
@@ -229,7 +232,7 @@ This document has been audited against all applicable rules in [AI-SDOM-ARC-0001
 | §6.1 | Document in correct class directory | PASS | Directory: 05-REGISTERS/ |
 | §7.3 | Dependencies section present | PASS | Dependencies lists ARC-0001 |
 | §7.5 | REG cites document whose records it holds | PASS | Dependencies: AI-SDOM-ARC-0001 |
-| §9.1 | SemVer version | PASS | Version: 0.18.0 |
+| §9.1 | SemVer version | PASS | Version: 0.19.0 |
 | §11.2 | Filename lowercase kebab-case | PASS | ai-sdom-reg-0001-repository-register.md |
 | §12 | Reserved range assignment | PASS | REG-0001 falls in REG 0001-0999 schema range |
 | §20.2 | Lifecycle state recorded | PASS | Lifecycle State: Active |
@@ -284,9 +287,9 @@ This document has been audited against all applicable rules in [AI-SDOM-ARC-0001
 
 | Rule | Requirement | Status | Evidence |
 |------|-------------|--------|----------|
-| G06-R1 | Version field present | PASS | `Version: 0.18.0` in front matter. |
-| G06-R2 | SemVer format | PASS | 0.18.0 matches `\d+\.\d+\.\d+`. |
-| G06-R3 | Version increment direction | PASS | 0.17.0 → 0.18.0 is a MINOR increment for the repository-register reconciliation recording the ratification of PRC-0003 and PRC-0004 from Draft 0.1.0 to Active 1.0.0. |
+| G06-R1 | Version field present | PASS | `Version: 0.19.0` in front matter. |
+| G06-R2 | SemVer format | PASS | 0.19.0 matches `\d+\.\d+\.\d+`. |
+| G06-R3 | Version increment direction | PASS | 0.18.0 → 0.19.0 is a MINOR increment for registering the first REG "filled entry" — REG-1000, the Elementor Integrity Incident and Evidence Record — including the inventory row, REG filled-entries range, exhaustion status, and next-identifier updates. |
 
 **G07 — Reserved Range Usage**
 
@@ -322,6 +325,7 @@ Not applicable. This document is a REG, not an ADR. Skip.
 
 | Version | Date       | Author | Description of Change | Approval |
 |---------|------------|--------|-----------------------|----------|
+| 0.19.0  | 2026-09-05 | opencode (big-pickle) | Registered REG-1000-ELEMENTOR-INTEGRITY-INCIDENT-AND-EVIDENCE (Elementor Integrity Incident and Evidence Record) as the first REG "filled entry" (range 1000-9999), documenting the Page 12 Elementor integrity incident, its repair evidence, and the regression-pinned integrity-gate behavior. Updated the inventory (22→23) and snapshot (REG 2→3), the REG 1000-9999 range (0→1 used, next 1001), the exhaustion status, and the next-identifier table. Updated the register's own current-version references (inventory row 3, ARC-0001 compliance §9.1, G06-R1/R2/R3) from 0.18.0 to 0.19.0. Corrections applied while editing: inventory row 3 was stale (read 0.17.0 even though the 0.18.0 amendment recorded bumping it to 0.18.0); it is now 0.19.0. | Pending |
 | 0.18.0  | 2026-09-04 | Saadat Hasan | Reconciled the Document Inventory with the ratified PRC-0003 and PRC-0004 procedures, updating both records from Draft 0.1.0 to Active 1.0.0. Updated the register's own current-version references (inventory row 3, ARC-0001 compliance §9.1, and G06-R1/R2/R3) from 0.17.0 to 0.18.0. No repository snapshot, identifier ranges, next-identifier values, or historical amendment records were changed. | Pending |
 | 0.17.0  | 2026-09-03 | —      | Recorded the GOV-0001 version change from 0.1.0 to 0.2.0 (initial Governance Board constitution naming the founding-author members and appointing the PRC and Quality Domain Maintainers). Updated the register's own current-version references (inventory row 3, ARC-0001 compliance §9.1, G06-R1/R2/R3) from 0.16.0 to 0.17.0 while leaving historical references unchanged. | Pending |
 | 0.16.0  | 2026-09-03 | —      | Governance-stack restoration and repository register reconciliation: restored the historical governance layer directories (01-ARCHITECTURE through 07-QUALITY); registered newly present PRC-0002, PRC-0003, PRC-0004, REG-0002, and ADR-0001; corrected the ARC-0001 directory cell from 00-ARCHITECTURE to 01-ARCHITECTURE; updated the snapshot (17→22), identifier ranges, next-available identifiers, and exhaustion status. | Pending |
@@ -387,3 +391,5 @@ The following issues were identified during the self-audit of this document and 
 20. **Governance-stack restoration and reconciliation (version 0.16.0):** Reconciled the register with the current repository after the governance-stack restoration. Registered the newly present governed documents: PRC-0002 (Architecture Decision Procedure, Active), PRC-0003 (Change Implementation Procedure, Draft), PRC-0004 (Elementor Document Mutation Procedure, Draft), REG-0002 (Architecture Decision Records Register, Active), and ADR-0001 (Governed Elementor Document Mutation via the Standard WordPress REST API, Proposed). Corrected the ARC-0001 inventory directory cell from 00-ARCHITECTURE to the restored 01-ARCHITECTURE. Updated the Current Repository Snapshot from 17 to 22 documents across eight classes and documented the restored layer directories. Updated the PRC operational range (0001-0999) from 1 used to 4 used and next available to 0005. Updated the REG schema range (0001-0999) from 1 used to 2 used and next available to 0003. Updated the ADR decision-records range (0001-9999) from 0 used to 1 used and next available to 0002. Updated the next-available-identifier per class table (PRC-0005, REG-0003, ADR-0002) and the exhaustion status table (PRC 0.4%, REG 0.2%, ADR 0.01%). ADR-0001 is inventoried at its actual lifecycle status (Proposed); its status was not changed and the ADR was not accepted. Updated the register's own current-version references (inventory row 3, ARC-0001 compliance §9.1, G06-R1/R2/R3, G05-R1) to 0.16.0 and the current ARC-0001 reference count to 16 while leaving historical references unchanged. All changes follow the existing Update Procedure without introducing new patterns.
 
 21. **GOV-0001 version-cell update (version 0.17.0):** Recorded the GOV-0001 version change from 0.1.0 to 0.2.0 in the register, reflecting the first amendment to GOV-0001 (initial Governance Board constitution naming the founding-author members and appointment of the PRC and Quality Domain Maintainers). This is a single version-cell update; no inventory, range, snapshot, or next-identifier changes. Updated the register's own current-version references (inventory row 3, ARC-0001 compliance §9.1, G06-R1/R2/R3) from 0.16.0 to 0.17.0 while leaving historical references unchanged. All changes follow the existing Update Procedure without introducing new patterns.
+
+22. **REG-1000 registration (version 0.19.0):** Registered the first REG "filled entry" (AI-SDOM-REG-1000-ELEMENTOR-INTEGRITY-INCIDENT-AND-EVIDENCE) at version 1.0.0 per the Update Procedure. Updated the REG filled-entries range (1000-9999) from 0 used to 1 used and next available from 1000 to 1001. Updated the inventory (22→23), the snapshot REG count (2→3), the exhaustion status (REG 1000-9999 at 0.01% utilization, Green), and the next-available-identifier table (added a REG filled-entry row at REG-1001). Updated the register's own current-version references (inventory row 3, ARC-0001 compliance §9.1, G06-R1/R2/R3) from 0.18.0 to 0.19.0. While editing, a pre-existing staleness in inventory row 3 was corrected (it still read 0.17.0 even though the 0.18.0 amendment recorded bumping it to 0.18.0; it is now 0.19.0). Only the 0.18.0 amendment-row header was touched to add the new 0.19.0 row; historical amendment text is unchanged. All changes follow the existing Update Procedure without introducing new patterns.
