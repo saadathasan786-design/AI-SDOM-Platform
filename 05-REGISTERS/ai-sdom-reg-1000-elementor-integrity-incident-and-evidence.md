@@ -1,11 +1,11 @@
 # Elementor Integrity Incident and Evidence Record
 
 **Identifier:** AI-SDOM-REG-1000-ELEMENTOR-INTEGRITY-INCIDENT-AND-EVIDENCE
-**Version:** 1.0.0
+**Version:** 1.0.1
 **Lifecycle State:** Active
 **Layer:** 5
 **Dependencies:** [AI-SDOM-ARC-0001-ARCHITECTURE-CONTRACT]
-**ai-assistance:** opencode (big-pickle) 2026-09-05: initial evidence record
+**ai-assistance:** opencode (big-pickle) 2026-09-05: initial evidence record; opencode (big-pickle) 2026-09-05: 1.0.1 hashing-convention clarification and live-state verification
 
 This register is the first REG "filled entry" (reserved range 1000-9999 per
 [AI-SDOM-ARC-0001 (Section 12)]). It records the Page 12 Elementor integrity
@@ -42,13 +42,34 @@ gate holds with ZERO writes and ZERO persisted snapshots.
 
 ### Evidence (hashes and lengths)
 
+**Hashing convention:** every incident hash recorded below is a **plain SHA-256
+of the raw stored `_elementor_data` string** — the exact bytes of the
+`meta._elementor_data` value as WordPress stores and returns it. The malformed
+baseline was unparseable JSON, so no parsed/canonical form could exist for it;
+the raw-string convention is therefore the only one defined for the incident.
+
 | Field | Value |
 |-------|-------|
-| Malformed document length | 8520 characters |
-| Repaired document length | 8515 characters |
-| Original (malformed) document SHA-256 | `f551597de603209b86078b5ccf7c6ac35d6fd6952b8c070fdce9c027bc23b975` |
-| Repaired document SHA-256 | `fca06f44e30c3fad431770c3e4214fa7aebec209b51224aa2b6d19d9a46d225e` |
+| Malformed document raw length | 8520 characters |
+| Repaired document raw length | 8515 characters |
+| Original (malformed) raw-string SHA-256 | `f551597de603209b86078b5ccf7c6ac35d6fd6952b8c070fdce9c027bc23b975` |
+| Repaired raw-string SHA-256 | `fca06f44e30c3fad431770c3e4214fa7aebec209b51224aa2b6d19d9a46d225e` |
 | Pre-repair rollback snapshot | `snap_2026-09-04T21-52-09-681Z_6569cb82` (Memory scope `test-website-ai-sdom`) |
+
+**Live-state verification (2026-09-05):** a read-only `GET /wp/v2/pages/12`
+returned `_elementor_data` with raw length **8515 characters**, and its
+raw-string SHA-256 exactly equals the repaired baseline `fca06f44…` above —
+the document IS the repaired state and is unchanged since
+`2026-09-04T21:54:35` (revision 2635). `wp_elementor_inspect` on page 12
+reports `element_count: 17`, `is_elementor: true`, and
+`document_sha256: ccd5d8c58ebdc093dad489d0f6e7d6685667692446981979b8703b7825d63fee`.
+
+> **Convention note:** `wp_elementor_inspect`'s `document_sha256` is NOT a
+> raw-string hash. It is the SHA-256 of the canonically re-serialized parsed
+> JSON (`sha256Stable(JSON.parse(_elementor_data))`, keys recursively sorted).
+> It is therefore **not directly comparable** to the raw-string hashes above;
+> to check the live document against this record, recompute the raw-string
+> SHA-256 of `meta._elementor_data`.
 
 ### Recovery Action
 
@@ -92,4 +113,5 @@ mutation.
 
 | Version | Date | Author | Description of Change | Approval |
 |---------|------|--------|-----------------------|----------|
+| 1.0.1 | 2026-09-05 | opencode (big-pickle) | Clarified the hashing convention: the recorded incident hashes are plain SHA-256 of the raw stored `_elementor_data` string, so they are not comparable to `wp_elementor_inspect`'s canonical (`sha256Stable`) `document_sha256`. Recorded the live-state verification (raw length 8515, raw-string SHA-256 matches the repaired baseline, unchanged since the repair) and the current inspect hash `ccd5d8c5…`. | Pending |
 | 1.0.0 | 2026-09-05 | opencode (big-pickle) | Initial evidence record for the Page 12 Elementor integrity incident, recovery evidence, and regression-pinned integrity-gate behavior. | Pending |
