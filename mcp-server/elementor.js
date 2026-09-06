@@ -161,6 +161,15 @@ function assertPlainObject(value, field) {
 
 function validateCreationSpecification(spec) {
   assertPlainObject(spec, "document_specification");
+
+  const allowedTopLevelKeys = new Set(["version", "elements"]);
+  const unsupportedKeys = Object.keys(spec).filter((key) => !allowedTopLevelKeys.has(key));
+  if (unsupportedKeys.length > 0) {
+    throw new Error(
+      `Unsupported document_specification field(s): ${unsupportedKeys.join(", ")}. Only 'version' and 'elements' are permitted; arbitrary Elementor data such as '_elementor_data' is not accepted.`,
+    );
+  }
+
   if (spec.version !== CREATION_SPEC_VERSION) {
     throw new Error(`Unsupported Elementor creation specification version '${spec.version}'. Expected '${CREATION_SPEC_VERSION}'.`);
   }
