@@ -87,7 +87,7 @@ export const elementorTools = [
       type: "object",
       properties: {
         page_id: { type: "number", description: "Existing WordPress page ID eligible for Elementor initialization." },
-        specification: {
+        document_specification: {
           type: "object",
           description:
             "Structured Elementor creation specification. The service validates and deterministically " +
@@ -96,7 +96,7 @@ export const elementorTools = [
             version: { type: "string", description: "Supported creation specification version." },
             elements: {
               type: "array",
-              description: "Top-level structured elements. Supported types: Container, Heading, Text Editor, Button, Image.",
+              description: "Top-level structured elements. Supported types: container, heading, text, button, image.",
             },
           },
           required: ["version", "elements"],
@@ -109,7 +109,7 @@ export const elementorTools = [
         client_id: { type: "string", description: "Optional scope identifier for the resulting Memory snapshot." },
         project_id: { type: "string", description: "Optional scope identifier for the resulting Memory snapshot." },
       },
-      required: ["page_id", "specification"],
+      required: ["page_id", "document_specification"],
     },
   },
 ];
@@ -159,14 +159,14 @@ export async function handleElementorPatch({ service, args = {} }) {
 
 export async function handleElementorCreate({ service, args = {} }) {
   requirePositiveInt(args, "page_id", "wp_elementor_create");
-  if (!args.specification || typeof args.specification !== "object" || Array.isArray(args.specification)) {
-    throw new Error("wp_elementor_create requires a structured 'specification' object.");
+  if (!args.document_specification || typeof args.document_specification !== "object" || Array.isArray(args.document_specification)) {
+    throw new Error("wp_elementor_create requires a structured 'document_specification' object.");
   }
   const scope =
     args.client_id || args.project_id ? { client_id: args.client_id, project_id: args.project_id } : undefined;
   return service.create({
     page_id: args.page_id,
-    specification: args.specification,
+    document_specification: args.document_specification,
     dry_run: args.dry_run === true,
     scope,
   });
