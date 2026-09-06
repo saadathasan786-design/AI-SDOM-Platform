@@ -35,11 +35,11 @@ function makeCreationWpRequest({ page, writes }) {
 }
 
 function baseCreationSpecification() {
-  return { version: "1.0", elements: [{ id: "hero", type: "Container", elements: [
-    { id: "heading", type: "Heading", settings: { title: "Hello AI-SDOM", heading_level: "h1" } },
-    { id: "copy", type: "Text Editor", settings: { editor: "<p>Created by AI-SDOM.</p>" } },
-    { id: "cta", type: "Button", settings: { button_text: "Contact", link: { url: "/contact/" } } },
-    { id: "image", type: "Image", settings: { image: { id: 123, url: "http://example.test/hero.jpg" } } },
+  return { version: "1.0", elements: [{ id: "hero", type: "container", children: [
+    { id: "heading", type: "heading", settings: { text: "Hello AI-SDOM", level: 1 } },
+    { id: "copy", type: "text", settings: { text: "<p>Created by AI-SDOM.</p>" } },
+    { id: "cta", type: "button", settings: { text: "Contact", url: "/contact/" } },
+    { id: "image", type: "image", settings: { id: 123, url: "http://example.test/hero.jpg" } },
   ] }] };
 }
 
@@ -61,7 +61,7 @@ test("elementor tools are exposed with the expected names", () => {
 
 test("wp_elementor_create declares the governed structured input", () => {
   const tool = elementorTools.find((t) => t.name === "wp_elementor_create");
-  assert.ok(tool); assert.equal(tool.inputSchema.properties.specification.type, "object"); assert.equal(tool.inputSchema.properties.dry_run.type, "boolean"); assert.deepEqual(tool.inputSchema.required, ["page_id", "specification"]);
+  assert.ok(tool); assert.equal(tool.inputSchema.properties.document_specification.type, "object"); assert.equal(tool.inputSchema.properties.dry_run.type, "boolean"); assert.deepEqual(tool.inputSchema.required, ["page_id", "document_specification"]);
 });
 
 test("wp_elementor_patch declares the governed safety inputs", () => {
@@ -72,43 +72,43 @@ test("wp_elementor_patch declares the governed safety inputs", () => {
 test("create initializes an eligible page and verifies the generated Elementor document", async () => {
   const page = { id: 2645, status: "draft", content: { raw: "" }, meta: { _elementor_edit_mode: "", _elementor_template_type: "", _elementor_data: "" } }; const writes = { count: 0 };
   const memory = { saveSnapshot: async ({ data }) => ({ id: "snap-create-test", data }), listSnapshots: async () => [] }; const service = createElementorService({ wpRequest: makeCreationWpRequest({ page, writes }), memory });
-  const res = await service.create({ page_id: 2645, specification: baseCreationSpecification(), scope: { project_id: "creation-test" } });
-  assert.equal(res.verified, true); assert.equal(res.page_id, 2645); assert.equal(res.element_count, 5); assert.equal(res.snapshot_id, "snap-create-test"); assert.equal(writes.count, 1); assert.equal(page.meta._elementor_edit_mode, "builder"); assert.equal(page.meta._elementor_template_type, "wp-page"); assert.ok(JSON.parse(page.meta._elementor_data));
+  const res = await service.create({ page_id: 2645, document_specification: baseCreationSpecification(), scope: { project_id: "creation-test" } });
+  assert.equal(res.verified, true); assert.equal(res.page_id, 2645); assert.equal(res.generated_document.element_count, 5); assert.equal(res.snapshot_id, "snap-create-test"); assert.equal(writes.count, 1); assert.equal(page.meta._elementor_edit_mode, "builder"); assert.equal(page.meta._elementor_template_type, "wp-page"); assert.ok(JSON.parse(page.meta._elementor_data));
 });
 
 test("create dry-run generates a document but performs ZERO WordPress writes", async () => {
   const page = { id: 2645, status: "draft", content: { raw: "" }, meta: { _elementor_edit_mode: "", _elementor_template_type: "", _elementor_data: "" } }; const writes = { count: 0 }; const service = createElementorService({ wpRequest: makeCreationWpRequest({ page, writes }), memory: null });
-  const res = await service.create({ page_id: 2645, specification: baseCreationSpecification(), dry_run: true }); assert.equal(res.dry_run, true); assert.equal(res.verified, false); assert.equal(res.element_count, 5); assert.equal(writes.count, 0); assert.equal(page.meta._elementor_edit_mode, "");
+  const res = await service.create({ page_id: 2645, document_specification: baseCreationSpecification(), dry_run: true }); assert.equal(res.dry_run, true); assert.equal(res.verified, false); assert.equal(res.generated_document.element_count, 5); assert.equal(writes.count, 0); assert.equal(page.meta._elementor_edit_mode, "");
 });
 
 test("create rejects an already-Elementor page before any write", async () => {
   const page = { id: 2645, status: "draft", content: { raw: "" }, meta: { _elementor_edit_mode: "builder", _elementor_template_type: "wp-page", _elementor_data: "[]" } }; const writes = { count: 0 }; const service = createElementorService({ wpRequest: makeCreationWpRequest({ page, writes }), memory: null });
-  await assert.rejects(() => service.create({ page_id: 2645, specification: baseCreationSpecification() }), /already an Elementor page/); assert.equal(writes.count, 0);
+  await assert.rejects(() => service.create({ page_id: 2645, document_specification: baseCreationSpecification() }), /already an Elementor page/); assert.equal(writes.count, 0);
 });
 
 test("create rejects a page with meaningful existing content before any write", async () => {
   const page = { id: 2645, status: "draft", content: { raw: "Existing content" }, meta: { _elementor_edit_mode: "", _elementor_template_type: "", _elementor_data: "" } }; const writes = { count: 0 }; const service = createElementorService({ wpRequest: makeCreationWpRequest({ page, writes }), memory: null });
-  await assert.rejects(() => service.create({ page_id: 2645, specification: baseCreationSpecification() }), /meaningful existing content/); assert.equal(writes.count, 0);
+  await assert.rejects(() => service.create({ page_id: 2645, document_specification: baseCreationSpecification() }), /existing WordPress content/); assert.equal(writes.count, 0);
 });
 
 test("create rejects unsupported element types before any write", async () => {
-  const page = { id: 2645, status: "draft", content: { raw: "" }, meta: { _elementor_edit_mode: "", _elementor_template_type: "", _elementor_data: "" } }; const writes = { count: 0 }; const service = createElementorService({ wpRequest: makeCreationWpRequest({ page, writes }), memory: null }); const spec = baseCreationSpecification(); spec.elements[0].elements.push({ id: "video", type: "Video" });
-  await assert.rejects(() => service.create({ page_id: 2645, specification: spec }), /Unsupported element type/); assert.equal(writes.count, 0);
+  const page = { id: 2645, status: "draft", content: { raw: "" }, meta: { _elementor_edit_mode: "", _elementor_template_type: "", _elementor_data: "" } }; const writes = { count: 0 }; const service = createElementorService({ wpRequest: makeCreationWpRequest({ page, writes }), memory: null }); const spec = baseCreationSpecification(); spec.elements[0].children.push({ id: "video", type: "Video" });
+  await assert.rejects(() => service.create({ page_id: 2645, document_specification: spec }), /Unsupported creation element type/); assert.equal(writes.count, 0);
 });
 
 test("create rejects duplicate element IDs before any write", async () => {
-  const page = { id: 2645, status: "draft", content: { raw: "" }, meta: { _elementor_edit_mode: "", _elementor_template_type: "", _elementor_data: "" } }; const writes = { count: 0 }; const service = createElementorService({ wpRequest: makeCreationWpRequest({ page, writes }), memory: null }); const spec = baseCreationSpecification(); spec.elements[0].elements[1].id = "heading";
-  await assert.rejects(() => service.create({ page_id: 2645, specification: spec }), /Duplicate element id/); assert.equal(writes.count, 0);
+  const page = { id: 2645, status: "draft", content: { raw: "" }, meta: { _elementor_edit_mode: "", _elementor_template_type: "", _elementor_data: "" } }; const writes = { count: 0 }; const service = createElementorService({ wpRequest: makeCreationWpRequest({ page, writes }), memory: null }); const spec = baseCreationSpecification(); spec.elements[0].children[1].id = "heading";
+  await assert.rejects(() => service.create({ page_id: 2645, document_specification: spec }), /Duplicate element id/); assert.equal(writes.count, 0);
 });
 
 test("create rejects an invalid child relationship before any write", async () => {
-  const page = { id: 2645, status: "draft", content: { raw: "" }, meta: { _elementor_edit_mode: "", _elementor_template_type: "", _elementor_data: "" } }; const writes = { count: 0 }; const service = createElementorService({ wpRequest: makeCreationWpRequest({ page, writes }), memory: null }); const spec = { version: "1.0", elements: [{ id: "heading", type: "Heading", elements: [{ id: "nested", type: "Text Editor" }] }] };
-  await assert.rejects(() => service.create({ page_id: 2645, specification: spec }), /cannot contain child elements/); assert.equal(writes.count, 0);
+  const page = { id: 2645, status: "draft", content: { raw: "" }, meta: { _elementor_edit_mode: "", _elementor_template_type: "", _elementor_data: "" } }; const writes = { count: 0 }; const service = createElementorService({ wpRequest: makeCreationWpRequest({ page, writes }), memory: null }); const spec = { version: "1.0", elements: [{ id: "heading", type: "heading", settings: { text: "Heading" }, children: [{ id: "nested", type: "text", settings: { text: "Nested" } }] }] };
+  await assert.rejects(() => service.create({ page_id: 2645, document_specification: spec }), /children is only supported on container elements/); assert.equal(writes.count, 0);
 });
 
 test("create rejects arbitrary _elementor_data input before any write", async () => {
-  const page = { id: 2645, status: "draft", content: { raw: "" }, meta: { _elementor_edit_mode: "", _elementor_template_type: "", _elementor_data: "" } }; const writes = { count: 0 }; const service = createElementorService({ wpRequest: makeCreationWpRequest({ page, writes }), memory: null }); const spec = { version: "1.0", elements: [], _elementor_data: "[]" };
-  await assert.rejects(() => service.create({ page_id: 2645, specification: spec }), /arbitrary _elementor_data/); assert.equal(writes.count, 0);
+  const page = { id: 2645, status: "draft", content: { raw: "" }, meta: { _elementor_edit_mode: "", _elementor_template_type: "", _elementor_data: "" } }; const writes = { count: 0 }; const service = createElementorService({ wpRequest: makeCreationWpRequest({ page, writes }), memory: null }); const spec = baseCreationSpecification(); spec._elementor_data = "[]";
+  await assert.rejects(() => handleElementorCreate({ service, args: { page_id: 2645, document_specification: spec } }), /arbitrary _elementor_data/); assert.equal(writes.count, 0);
 });
 
 test("inspect returns element count, is_elementor, and a stable document SHA-256", async () => {
@@ -131,9 +131,9 @@ test("the same counting harness performs EXACTLY one write and one snapshot on a
   const res = await service.patch({ page_id: 12, element_id: "w2", property_path: "settings.editor", value: "<p>Integrity gate ok</p>", scope }); assert.ok(res.verified); assert.equal(fake.writes(), 1); assert.equal((await memory.listSnapshots({ scope })).length, 1); await fs.rm(tmp, { recursive: true, force: true });
 });
 
-test("handleElementorCreate validates page_id and specification shape", async () => { const service = { create: async () => ({ ok: true }) }; await assert.rejects(() => handleElementorCreate({ service, args: {} }), /positive integer 'page_id'/); await assert.rejects(() => handleElementorCreate({ service, args: { page_id: 1 } }), /structured 'specification'/); });
+test("handleElementorCreate validates page_id and document_specification shape", async () => { const service = { create: async () => ({ ok: true }) }; await assert.rejects(() => handleElementorCreate({ service, args: {} }), /positive integer 'page_id'/); await assert.rejects(() => handleElementorCreate({ service, args: { page_id: 1 } }), /structured 'document_specification'/); });
 
-test("handleElementorCreate delegates structured specification and dry-run without changing it", async () => { let received; const service = { create: async (args) => { received = args; return { ok: true }; } }; const specification = baseCreationSpecification(); const res = await handleElementorCreate({ service, args: { page_id: 2645, specification, dry_run: true, client_id: "c", project_id: "p" } }); assert.deepEqual(res, { ok: true }); assert.equal(received.page_id, 2645); assert.equal(received.specification, specification); assert.equal(received.dry_run, true); assert.deepEqual(received.scope, { client_id: "c", project_id: "p" }); });
+test("handleElementorCreate delegates document_specification and dry-run without changing it", async () => { let received; const service = { create: async (args) => { received = args; return { ok: true }; } }; const document_specification = baseCreationSpecification(); const res = await handleElementorCreate({ service, args: { page_id: 2645, document_specification, dry_run: true, client_id: "c", project_id: "p" } }); assert.deepEqual(res, { ok: true }); assert.equal(received.page_id, 2645); assert.equal(received.document_specification, document_specification); assert.equal(received.dry_run, true); assert.deepEqual(received.scope, { client_id: "c", project_id: "p" }); });
 
 test("handleElementorInspect validates page_id and delegates", async () => { const service = { inspect: async () => ({}) }; await assert.rejects(() => handleElementorInspect({ service, args: { page_id: 0 } }), /positive integer 'page_id'/); });
 
