@@ -162,6 +162,9 @@ export async function handleElementorCreate({ service, args = {} }) {
   if (!args.document_specification || typeof args.document_specification !== "object" || Array.isArray(args.document_specification)) {
     throw new Error("wp_elementor_create requires a structured 'document_specification' object.");
   }
+  if (Object.prototype.hasOwnProperty.call(args.document_specification, "_elementor_data")) {
+    throw new Error("wp_elementor_create does not accept arbitrary _elementor_data input; provide a structured document_specification.");
+  }
   const scope =
     args.client_id || args.project_id ? { client_id: args.client_id, project_id: args.project_id } : undefined;
   return service.create({
