@@ -14,6 +14,7 @@ import {
   elementorTools,
   handleElementorInspect,
   handleElementorPatch,
+  handleElementorCreate,
 } from "./elementor-tools.js";
 import {
   advisorTools,
@@ -471,10 +472,14 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         result = await handleElementorInspect({ service: elementor, args });
         break;
       }
-      case "wp_elementor_patch": {
-        result = await handleElementorPatch({ service: elementor, args });
+     case "wp_elementor_create": {
+        result = await handleElementorCreate({ service: elementor, args });
         break;
       }
+      case "wp_elementor_create": {
+  result = await handleElementorCreate({ service: elementor, args });
+  break;
+    }
       default:
         throw new Error(`Unknown tool: ${name}`);
     }
