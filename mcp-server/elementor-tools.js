@@ -8,8 +8,7 @@
  * used by the rest of the server, and returns its result unchanged.
  *
  * The only adapter-level validation here is the shape of the MCP request
- * itself (e.g. requiring page_id and element_id). Framework/GOV logic remains
- * owned by elementor.js.
+ * itself. Framework/GOV logic remains owned by elementor.js.
  */
 
 import { createElementorService } from "./elementor.js";
@@ -76,6 +75,43 @@ export const elementorTools = [
       required: ["page_id", "element_id", "property_path", "value"],
     },
   },
+  {
+    name: "wp_elementor_create",
+    description:
+      "Governed creation of an Elementor document on an existing eligible WordPress page. " +
+      "Accepts only a structured specification for the supported Container, Heading, Text Editor, " +
+      "Button, and Image elements; it never accepts arbitrary _elementor_data. Performs discover -> " +
+      "specify -> validate -> dry-run -> initialize -> verify -> snapshot. Creation is refused if " +
+      "the target is already Elementor or contains meaningful existing content.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        page_id: { type: "number", description: "Existing WordPress page ID eligible for Elementor initialization." },
+        specification: {
+          type: "object",
+          description:
+            "Structured Elementor creation specification. The service validates and deterministically " +
+            "builds _elementor_data; arbitrary _elementor_data is not accepted.",
+          properties: {
+            version: { type: "string", description: "Supported creation specification version." },
+            elements: {
+              type: "array",
+              description: "Top-level structured elements. Supported types: Container, Heading, Text Editor, Button, Image.",
+            },
+          },
+          required: ["version", "elements"],
+        },
+        dry_run: {
+          type: "boolean",
+          default: false,
+          description: "If true, validate and generate the document without initializing or writing the WordPress page.",
+        },
+        client_id: { type: "string", description: "Optional scope identifier for the resulting Memory snapshot." },
+        project_id: { type: "string", description: "Optional scope identifier for the resulting Memory snapshot." },
+      },
+      required: ["page_id", "specification"],
+    },
+  },
 ];
 
 function requirePositiveInt(args, field, toolName) {
@@ -116,6 +152,21 @@ export async function handleElementorPatch({ service, args = {} }) {
     value: args.value,
     expected_baseline_sha256: args.expected_baseline_sha256,
     allow_structural: args.allow_structural === true,
+    dry_run: args.dry_run === true,
+    scope,
+  });
+}
+
+export async function handleElementorCreate({ service, args = {} }) {
+  requirePositiveInt(args, "page_id", "wp_elementor_create");
+  if (!args.specification || typeof args.specification !== "object" || Array.isArray(args.specification)) {
+    throw new Error("wp_elementor_create requires a structured 'specification' object.");
+  }
+  const scope =
+    args.client_id || args.project_id ? { client_id: args.client_id, project_id: args.project_id } : undefined;
+  return service.create({
+    page_id: args.page_id,
+    specification: args.specification,
     dry_run: args.dry_run === true,
     scope,
   });
