@@ -1,11 +1,11 @@
 # Repository Register
 
 **Identifier:** AI-SDOM-REG-0001-REPOSITORY-REGISTER  
-**Version:** 0.19.0  
+**Version:** 0.19.1  
 **Lifecycle State:** Active  
 **Layer:** 5  
 **Dependencies:** [AI-SDOM-ARC-0001-ARCHITECTURE-CONTRACT]  
-**ai-assistance:** Claude 2026-07-31: initial draft; opencode (deepseek-v4-flash-free) 2026-07-31: GOV-0002 registration, QLT-0002 registration, STD-0002 registration; opencode (deepseek-v4-flash-free) 2026-08-01: GOV-0003 registration, STD-0003 registration, STD-0004 registration, STD-0005 registration, STD-0006 registration, STD-0007 registration; opencode (deepseek-v4-flash-free) 2026-08-01: 0.14.1 Phase 2K version-cell correction; opencode (deepseek-v4-flash-free) 2026-08-02: STD-0008 registration (Phase 3C-1); opencode 2026-09-03: 0.16.0 governance-stack restoration and repository register reconciliation; opencode 2026-09-03: 0.17.0 GOV-0001 version-cell update; opencode (big-pickle) 2026-09-05: 0.19.0 REG-1000 registration (Elementor Integrity Incident and Evidence Record)  
+**ai-assistance:** Claude 2026-07-31: initial draft; opencode (deepseek-v4-flash-free) 2026-07-31: GOV-0002 registration, QLT-0002 registration, STD-0002 registration; opencode (deepseek-v4-flash-free) 2026-08-01: GOV-0003 registration, STD-0003 registration, STD-0004 registration, STD-0005 registration, STD-0006 registration, STD-0007 registration; opencode (deepseek-v4-flash-free) 2026-08-01: 0.14.1 Phase 2K version-cell correction; opencode (deepseek-v4-flash-free) 2026-08-02: STD-0008 registration (Phase 3C-1); opencode 2026-09-03: 0.16.0 governance-stack restoration and repository register reconciliation; opencode 2026-09-03: 0.17.0 GOV-0001 version-cell update; opencode (big-pickle) 2026-09-05: 0.19.0 REG-1000 registration (Elementor Integrity Incident and Evidence Record); opencode (big-pickle) 2026-09-05: 0.19.1 REG-1000 version-cell update (1.0.0 → 1.0.1 hashing-convention clarification)  
 
 ---
 
@@ -25,7 +25,7 @@ The following table records every governed document currently in the repository.
 |---|------------|-------|---------|-------|-----------|----------------|--------------|
 | 1 | AI-SDOM-ARC-0001-ARCHITECTURE-CONTRACT | Architecture Contract | 1.0.0 | 0 | 01-ARCHITECTURE | Active | Dependencies: None |
 | 2 | AI-SDOM-QLT-0001-ARCHITECTURE-VALIDATION-STANDARD | Architecture Validation Standard | 1.0.0 | X | 07-QUALITY | Active | AI-SDOM-ARC-0001 |
-| 3 | AI-SDOM-REG-0001-REPOSITORY-REGISTER | Repository Register | 0.19.0 | 5 | 05-REGISTERS | Active | AI-SDOM-ARC-0001 |
+| 3 | AI-SDOM-REG-0001-REPOSITORY-REGISTER | Repository Register | 0.19.1 | 5 | 05-REGISTERS | Active | AI-SDOM-ARC-0001 |
 | 4 | AI-SDOM-GOV-0001-REPOSITORY-GOVERNANCE-POLICY | Repository Governance Policy | 0.2.0 | 1 | 01-GOVERNANCE | Active | AI-SDOM-ARC-0001 |
 | 5 | AI-SDOM-STD-0001-DOCUMENTATION-STANDARD | Documentation Standard | 0.1.0 | 2 | 02-STANDARDS | Active | AI-SDOM-ARC-0001, AI-SDOM-GOV-0001 |
 | 6 | AI-SDOM-TPL-0001-MASTER-DOCUMENT-TEMPLATE | Master Document Template | 0.1.0 | 4 | 04-TEMPLATES | Active | AI-SDOM-ARC-0001, AI-SDOM-STD-0001 |
@@ -45,7 +45,7 @@ The following table records every governed document currently in the repository.
 | 20 | AI-SDOM-PRC-0004-ELEMENTOR-MUTATION-PROCEDURE | Elementor Document Mutation Procedure | 1.0.0 | 3 | 03-PROCEDURES | Active | AI-SDOM-ARC-0001, AI-SDOM-GOV-0001, AI-SDOM-GOV-0002, AI-SDOM-STD-0001, AI-SDOM-STD-0002, AI-SDOM-STD-0003, AI-SDOM-STD-0004, AI-SDOM-STD-0005, AI-SDOM-STD-0006, AI-SDOM-STD-0007 |
 | 21 | AI-SDOM-REG-0002-ARCHITECTURE-DECISION-RECORDS | Architecture Decision Records Register | 1.0.0 | 5 | 05-REGISTERS | Active | AI-SDOM-ARC-0001 |
 | 22 | AI-SDOM-ADR-0001-GOVERNED-ELEMENTOR-DOCUMENT-MUTATION | Governed Elementor Document Mutation via the Standard WordPress REST API | — | 1 | 06-DECISIONS | Proposed | AI-SDOM-ARC-0001, AI-SDOM-STD-0001, AI-SDOM-STD-0003, AI-SDOM-STD-0005, AI-SDOM-STD-0006, AI-SDOM-STD-0007 |
-| 23 | AI-SDOM-REG-1000-ELEMENTOR-INTEGRITY-INCIDENT-AND-EVIDENCE | Elementor Integrity Incident and Evidence Record | 1.0.0 | 5 | 05-REGISTERS | Active | AI-SDOM-ARC-0001 |
+| 23 | AI-SDOM-REG-1000-ELEMENTOR-INTEGRITY-INCIDENT-AND-EVIDENCE | Elementor Integrity Incident and Evidence Record | 1.0.1 | 5 | 05-REGISTERS | Active | AI-SDOM-ARC-0001 |
 
 ### Column Definitions
 
@@ -232,7 +232,7 @@ This document has been audited against all applicable rules in [AI-SDOM-ARC-0001
 | §6.1 | Document in correct class directory | PASS | Directory: 05-REGISTERS/ |
 | §7.3 | Dependencies section present | PASS | Dependencies lists ARC-0001 |
 | §7.5 | REG cites document whose records it holds | PASS | Dependencies: AI-SDOM-ARC-0001 |
-| §9.1 | SemVer version | PASS | Version: 0.19.0 |
+| §9.1 | SemVer version | PASS | Version: 0.19.1 |
 | §11.2 | Filename lowercase kebab-case | PASS | ai-sdom-reg-0001-repository-register.md |
 | §12 | Reserved range assignment | PASS | REG-0001 falls in REG 0001-0999 schema range |
 | §20.2 | Lifecycle state recorded | PASS | Lifecycle State: Active |
@@ -287,9 +287,9 @@ This document has been audited against all applicable rules in [AI-SDOM-ARC-0001
 
 | Rule | Requirement | Status | Evidence |
 |------|-------------|--------|----------|
-| G06-R1 | Version field present | PASS | `Version: 0.19.0` in front matter. |
-| G06-R2 | SemVer format | PASS | 0.19.0 matches `\d+\.\d+\.\d+`. |
-| G06-R3 | Version increment direction | PASS | 0.18.0 → 0.19.0 is a MINOR increment for registering the first REG "filled entry" — REG-1000, the Elementor Integrity Incident and Evidence Record — including the inventory row, REG filled-entries range, exhaustion status, and next-identifier updates. |
+| G06-R1 | Version field present | PASS | `Version: 0.19.1` in front matter. |
+| G06-R2 | SemVer format | PASS | 0.19.1 matches `\d+\.\d+\.\d+`. |
+| G06-R3 | Version increment direction | PASS | 0.19.0 → 0.19.1 is a PATCH increment for recording the REG-1000 version-cell change (1.0.0 → 1.0.1, hashing-convention clarification) in the inventory. |
 
 **G07 — Reserved Range Usage**
 
@@ -325,6 +325,7 @@ Not applicable. This document is a REG, not an ADR. Skip.
 
 | Version | Date       | Author | Description of Change | Approval |
 |---------|------------|--------|-----------------------|----------|
+| 0.19.1  | 2026-09-05 | opencode (big-pickle) | Recorded the REG-1000 version-cell change from 1.0.0 to 1.0.1 (hashing-convention clarification and live-state verification). Single version-cell update; no inventory, range, snapshot, or next-identifier changes. Updated the register's own current-version references (inventory row 3, ARC-0001 compliance §9.1, G06-R1/R2/R3) from 0.19.0 to 0.19.1. | Pending |
 | 0.19.0  | 2026-09-05 | opencode (big-pickle) | Registered REG-1000-ELEMENTOR-INTEGRITY-INCIDENT-AND-EVIDENCE (Elementor Integrity Incident and Evidence Record) as the first REG "filled entry" (range 1000-9999), documenting the Page 12 Elementor integrity incident, its repair evidence, and the regression-pinned integrity-gate behavior. Updated the inventory (22→23) and snapshot (REG 2→3), the REG 1000-9999 range (0→1 used, next 1001), the exhaustion status, and the next-identifier table. Updated the register's own current-version references (inventory row 3, ARC-0001 compliance §9.1, G06-R1/R2/R3) from 0.18.0 to 0.19.0. Corrections applied while editing: inventory row 3 was stale (read 0.17.0 even though the 0.18.0 amendment recorded bumping it to 0.18.0); it is now 0.19.0. | Pending |
 | 0.18.0  | 2026-09-04 | Saadat Hasan | Reconciled the Document Inventory with the ratified PRC-0003 and PRC-0004 procedures, updating both records from Draft 0.1.0 to Active 1.0.0. Updated the register's own current-version references (inventory row 3, ARC-0001 compliance §9.1, and G06-R1/R2/R3) from 0.17.0 to 0.18.0. No repository snapshot, identifier ranges, next-identifier values, or historical amendment records were changed. | Pending |
 | 0.17.0  | 2026-09-03 | —      | Recorded the GOV-0001 version change from 0.1.0 to 0.2.0 (initial Governance Board constitution naming the founding-author members and appointing the PRC and Quality Domain Maintainers). Updated the register's own current-version references (inventory row 3, ARC-0001 compliance §9.1, G06-R1/R2/R3) from 0.16.0 to 0.17.0 while leaving historical references unchanged. | Pending |
@@ -393,3 +394,5 @@ The following issues were identified during the self-audit of this document and 
 21. **GOV-0001 version-cell update (version 0.17.0):** Recorded the GOV-0001 version change from 0.1.0 to 0.2.0 in the register, reflecting the first amendment to GOV-0001 (initial Governance Board constitution naming the founding-author members and appointment of the PRC and Quality Domain Maintainers). This is a single version-cell update; no inventory, range, snapshot, or next-identifier changes. Updated the register's own current-version references (inventory row 3, ARC-0001 compliance §9.1, G06-R1/R2/R3) from 0.16.0 to 0.17.0 while leaving historical references unchanged. All changes follow the existing Update Procedure without introducing new patterns.
 
 22. **REG-1000 registration (version 0.19.0):** Registered the first REG "filled entry" (AI-SDOM-REG-1000-ELEMENTOR-INTEGRITY-INCIDENT-AND-EVIDENCE) at version 1.0.0 per the Update Procedure. Updated the REG filled-entries range (1000-9999) from 0 used to 1 used and next available from 1000 to 1001. Updated the inventory (22→23), the snapshot REG count (2→3), the exhaustion status (REG 1000-9999 at 0.01% utilization, Green), and the next-available-identifier table (added a REG filled-entry row at REG-1001). Updated the register's own current-version references (inventory row 3, ARC-0001 compliance §9.1, G06-R1/R2/R3) from 0.18.0 to 0.19.0. While editing, a pre-existing staleness in inventory row 3 was corrected (it still read 0.17.0 even though the 0.18.0 amendment recorded bumping it to 0.18.0; it is now 0.19.0). Only the 0.18.0 amendment-row header was touched to add the new 0.19.0 row; historical amendment text is unchanged. All changes follow the existing Update Procedure without introducing new patterns.
+
+23. **REG-1000 version-cell update (version 0.19.1):** Recorded the REG-1000 version change from 1.0.0 to 1.0.1 (hashing-convention clarification and live-state verification). Single version-cell update; no inventory, range, snapshot, or next-identifier changes. Updated the register's own current-version references (inventory row 3, ARC-0001 compliance §9.1, G06-R1/R2/R3) from 0.19.0 to 0.19.1. All changes follow the existing Update Procedure without introducing new patterns (mirrors the 0.14.1 PATCH-correction precedent).
